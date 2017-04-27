@@ -22,13 +22,13 @@ class Index extends Controller
         $pageMilk = Request::instance()->get('pk') ? Request::instance()->get('pk') : 1;
         $pageWine = Request::instance()->get('pn') ? Request::instance()->get('pn') : 1;
         $pageFood < 1 ? 1 : $pageFood;
-        $beginFood = $pageFood * 10;
+        $beginFood = ($pageFood - 1) * 10;
         $pageMeat < 1 ? 1 : $pageMeat;
-        $beginMeat = $pageMeat * 10;
+        $beginMeat = ($pageMeat - 1) * 10;
         $pageMilk < 1 ? 1 : $pageMilk;
-        $beginMilk = $pageMilk * 10;
+        $beginMilk = ($pageMilk - 1) * 10;
         $pageWine < 1 ? 1 : $pageWine;
-        $beginWine = $pageWine * 10;
+        $beginWine = ($pageWine - 1) * 10;
         $offset = 10;
 
         // 当前页码
@@ -42,9 +42,12 @@ class Index extends Controller
         $dir = CLASSIFICATION_PATH. 'shipin/';
         $foodFile = scandir($dir);
         unset($foodFile[0]); unset($foodFile[1]);
-        $foodFilePage = array_slice($foodFile, $beginFood, $offset);
+        $foodFilePage = array_slice($foodFile, $beginFood, $offset, true);
         foreach ($foodFilePage as $key => $name) {
-            $fileData['foodFile']['files'][] = ['id' =>$key, 'name' =>$name];
+            $content = file_get_contents($dir. $name);
+            $tip = strpos($content, ',');
+            $title =substr($content, 0, $tip);
+            $fileData['foodFile']['files'][] = ['id' =>$key, 'name' =>$title, 'file' => $name];
         }
         $fileData['foodFile']['count'] = count($foodFile);
 
@@ -52,9 +55,12 @@ class Index extends Controller
         $dir = CLASSIFICATION_PATH. 'roulei/';
         $meatFile = scandir($dir);
         unset($meatFile[0], $meatFile[1]);
-        $meatFilePage = array_slice($meatFile, $beginMeat, $offset);
+        $meatFilePage = array_slice($meatFile, $beginMeat, $offset, true);
         foreach ($meatFilePage as $key => $name) {
-            $fileData['meatFile']['files'][] = ['id' =>$key, 'name' => $name];
+            $content = file_get_contents($dir. $name);
+            $tip = strpos($content, ',');
+            $title =substr($content, 0, $tip);
+            $fileData['meatFile']['files'][] = ['id' =>$key, 'name' => $title, 'file' => $name];
         }
         $fileData['meatFile']['count'] = count($meatFile);
 
@@ -62,9 +68,12 @@ class Index extends Controller
         $dir = CLASSIFICATION_PATH. 'jiulei/';
         $wineFile = scandir($dir);
         unset($wineFile[0], $wineFile[1]);
-        $wineFilePage = array_slice($wineFile, $beginWine, $offset);
+        $wineFilePage = array_slice($wineFile, $beginWine, $offset, true);
         foreach ($wineFilePage as $key => $name) {
-            $fileData['wineFile']['files'][] = ['id' =>$key, 'name' =>$name];
+            $content = file_get_contents($dir. $name);
+            $tip = strpos($content, ',');
+            $title =substr($content, 0, $tip);
+            $fileData['wineFile']['files'][] = ['id' =>$key, 'name' =>$title, 'file' => $name];
         }
         $fileData['wineFile']['count'] = count($wineFile);
 
@@ -72,9 +81,12 @@ class Index extends Controller
         $dir = CLASSIFICATION_PATH. 'nailei/';
         $milkFile = scandir($dir);
         unset($milkFile[0], $milkFile[1]);
-        $milkFilePage = array_slice($milkFile, $beginMilk, $offset);
+        $milkFilePage = array_slice($milkFile, $beginMilk, $offset, true);
         foreach ($milkFilePage as $key => $name) {
-            $fileData['milkFile']['files'][] = ['id' =>$key, 'name' =>$name];
+            $content = file_get_contents($dir. $name);
+            $tip = strpos($content, ',');
+            $title =substr($content, 0, $tip);
+            $fileData['milkFile']['files'][] = ['id' =>$key, 'name' =>$title, 'file' => $name];
         }
         $fileData['milkFile']['count'] = count($milkFile);
 
@@ -115,17 +127,63 @@ class Index extends Controller
         $this->assign('content', $content);
         return $this->fetch();
     }
-    private function _delFile()
+    public function delFile()
     {
-        $dir = CLASSIFICATION_PATH. 'shipin/';
+        exit;
+        $dir = CLASSIFICATION_PATH. 'tichu/';
         $file = scandir($dir);
 //        print_r($file);
         unset($file[0]); unset($file[1]);
         foreach ($file as $value) {
             $data = file_get_contents($dir. $value);
             if (strlen($data) > 100) {
-                file_put_contents(CLASSIFICATION_PATH. 'pinyin2/'. $value, $data);
+                file_put_contents(CLASSIFICATION_PATH. 'canuse/'. $value, $data);
             }
         }
+        return 'OK';
+    }
+
+    public function classificationResult()
+    {
+        $dirN = 'D:\\Ml\\svm\\ClassificationForThreeData\\readyClassify\\酒类\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = 'D:\\Ml\\svm\\ClassificationForThreeData\\ClassificationFile\\酒类\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['酒类准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = 'D:\\Ml\\svm\\ClassificationForThreeData\\readyClassify\\奶类\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = 'D:\\Ml\\svm\\ClassificationForThreeData\\ClassificationFile\\奶类\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['奶类准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = 'D:\\Ml\\svm\\ClassificationForThreeData\\readyClassify\\肉类\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = 'D:\\Ml\\svm\\ClassificationForThreeData\\ClassificationFile\\肉类\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['肉类准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = 'D:\\Ml\\svm\\ClassificationForThreeData\\readyClassify\\食品\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = 'D:\\Ml\\svm\\ClassificationForThreeData\\ClassificationFile\\食品\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['食品准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+        print_r($result);
     }
 }
