@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>音频播放</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<!--<link rel="stylesheet" type="text/css" href="/static/APlayer/demo/css/main.css" />-->
+<link rel="stylesheet" href="/static/music-player/APlayer.min.css">
+<style>
+    #player {background-color: #fff }
+    body { background-color: #eee }
+    .demo{width:360px; margin:60px auto 10px auto}
+    .demo p{padding:10px 0}
+</style>
+</head>
+
+<body>
+<div id="header">
+</div>
+<div id="main">
+	<div class="demo"><div id="player" class="aplayer"></div>
+    </div>
+</div>
+<script src="/static/music-player/APlayer.min.js"></script>
+    <script>
+        var ap = new APlayer({
+            element: document.getElementById('player'),
+            narrow: false,
+            autoplay: false,
+            showlrc: false,
+            music: {
+                title: 'Shake it of',
+                author: 'Taylor Swift',
+                url: '/video/3.mp3',
+                pic: ''
+            }
+        });
+        ap.init();
+    </script>
+
+</body>
+</html>

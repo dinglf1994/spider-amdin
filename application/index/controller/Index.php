@@ -1,19 +1,43 @@
 <?php
 namespace app\index\controller;
 
+use app\index\model\User;
 use think\Controller;
 use think\Request;
+use think\Session;
 
 class Index extends Controller
 {
+    private $_objUser;
     const FOOD_TYPE = 1;
     const WINE_TYPE = 2;
     const MEAT_TYPE = 3;
     const MILK_TYPE = 4;
+    public function __construct(Request $request, User $user)
+    {
+        parent::__construct($request);
+        $this->_objUser = $user;
+    }
+
     public function index()
     {
-        return $this->fetch();
+        return $this->fetch('login');
     }
+    public function login()
+    {
+        $data = $this->request->post();
+        $login['number'] = trim($data['number']);
+        $login['password'] = md5(trim($data['password']));
+        if ($this->_objUser->verify($login) && $name = $this->_objUser->updateLoginState($login['number'])) {
+            Session::set('userNumber', $login['number']);
+            Session::set('name', $name['name']);
+            $this->success('登陆成功，正在跳转', '/index/index/dirlist');
+        }else {
+            $this->error('登陆失败。。。');
+        }
+    }
+
+
     // 读取文本 分析
     public function dirList()
     {
