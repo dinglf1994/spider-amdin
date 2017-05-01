@@ -442,7 +442,7 @@
     <div class="copyright">
         <a title="不要担心，返回页面" href="/index/label">Back</a>
         <span>V<?php echo THINK_VERSION; ?></span> 
-        <span>{ 基于 TP5.0 开发，进请入官网了解 TP 框架 }</span>
+        <span>{ 基于 TP5.0 开发，请进入官网了解 TP 框架 }</span>
     </div>
     <?php if(\think\App::$debug) { ?>
     <script>
