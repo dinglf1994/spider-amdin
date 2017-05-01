@@ -13,6 +13,7 @@ class Label extends Controller
     private $_objUser;
     private $_objClassify;
     private $_objUserClassify;
+    private $loginCheck = ['login', 'register'];
     const FOOD_TYPE = 1;
     const WINE_TYPE = 2;
     const MEAT_TYPE = 3;
@@ -20,6 +21,11 @@ class Label extends Controller
     public function __construct(Request $request, User $user, Classify $classify, UserClassify $userClassify)
     {
         parent::__construct($request);
+        if (!in_array(ACTION_NAME, $this->loginCheck)) {
+            if (!isLogin()) {
+                $this->error('抱歉，您尚未登录，请登录再进行操作。正在跳转至登录页面。', '/');
+            }
+        }
         $this->_objUser = $user;
         $this->_objClassify = $classify;
         $this->_objUserClassify = $userClassify;
@@ -325,5 +331,18 @@ class Label extends Controller
         } else {
             return 'false';
         }
+    }
+
+    // 建议
+    public function suggest()
+    {
+        return $this->fetch();
+    }
+
+    // 退出
+    public function signOut()
+    {
+        Session::clear();
+        $this->redirect('/');
     }
 }
