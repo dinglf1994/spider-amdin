@@ -34,7 +34,7 @@ class Index extends Controller
         if ($this->_objUser->verify($login) && $name = $this->_objUser->updateLoginState($login['number'])) {
             Session::set('userNumber', $login['number']);
             Session::set('name', $name['name']);
-            $this->success('登陆成功，正在跳转', '/index/index/dirlist');
+            $this->success('登陆成功，正在跳转', '/index/label');
         }else {
             $this->error('登陆失败。。。');
         }
