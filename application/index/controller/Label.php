@@ -3,46 +3,29 @@ namespace app\index\controller;
 
 use app\index\model\Classify;
 use app\index\model\User;
+use app\index\model\UserClassify;
 use think\Controller;
 use think\Request;
 use think\Session;
 
-class Index extends Controller
+class Label extends Controller
 {
     private $_objUser;
     private $_objClassify;
+    private $_objUserClassify;
     const FOOD_TYPE = 1;
     const WINE_TYPE = 2;
     const MEAT_TYPE = 3;
     const MILK_TYPE = 4;
-    public function __construct(Request $request, User $user, Classify $classify)
+    public function __construct(Request $request, User $user, Classify $classify, UserClassify $userClassify)
     {
         parent::__construct($request);
         $this->_objUser = $user;
         $this->_objClassify = $classify;
+        $this->_objUserClassify = $userClassify;
     }
 
     public function index()
-    {
-        return $this->fetch('login');
-    }
-    public function login()
-    {
-        $data = $this->request->post();
-        $login['number'] = trim($data['number']);
-        $login['password'] = md5(trim($data['password']));
-        if ($this->_objUser->verify($login) && $name = $this->_objUser->updateLoginState($login['number'])) {
-            Session::set('userNumber', $login['number']);
-            Session::set('name', $name['name']);
-            $this->success('登陆成功，正在跳转', '/index/index/dirlist');
-        }else {
-            $this->error('登陆失败。。。');
-        }
-    }
-
-
-    // 读取文本 分析
-    public function dirList()
     {
         $pageFood = Request::instance()->get('pd') ? Request::instance()->get('pd') : 1;
         $pageMeat = Request::instance()->get('pt') ? Request::instance()->get('pt') : 1;
@@ -60,62 +43,84 @@ class Index extends Controller
 
         // 当前页码
         $page = ['food' => $pageFood,
-                 'meat' => $pageMeat,
-                 'milk' => $pageMilk,
-                 'wine' => $pageWine
-                ];
+            'meat' => $pageMeat,
+            'milk' => $pageMilk,
+            'wine' => $pageWine
+        ];
+
+        $number = intval(Session::get('userNumber'));
 
         // 食品
-        $dir = CLASSIFICATION_PATH. 'shipin/';
-        $foodFile = scandir($dir);
-        unset($foodFile[0]); unset($foodFile[1]);
-        $foodFilePage = array_slice($foodFile, $beginFood, $offset, true);
-        foreach ($foodFilePage as $key => $name) {
-            $content = file_get_contents($dir. $name);
-            $tip = strpos($content, ',');
-            $title =substr($content, 0, $tip);
-            $fileData['foodFile']['files'][] = ['id' =>$key, 'name' =>$title, 'file' => $name];
+        $where = ['type' => 1];
+        $foodFilePage = $this->_objClassify->getPageData($where, $beginFood, $offset);
+        foreach ($foodFilePage as $key => $item) {
+//            $content = $name['content'];
+            $title = $item['title'];
+            $name = $item['text_name'];
+            $needClassify = $item['need_classify'];
+            $hasFeedback = ['classify_id' => $name, 'user_id' => $number];
+            $iNeed = 0;
+            if ($this->_objUserClassify->hasFeedback($hasFeedback)) {
+                $iNeed = 1;
+            }
+            $fileData['foodFile']['files'][] = ['id' =>$item['id'], 'name' =>$title, 'file' => $name, 'need_classify' => $needClassify, 'i_need' => $iNeed];
         }
-        $fileData['foodFile']['count'] = count($foodFile);
+        $fileData['foodFile']['count'] = $this->_objClassify->where($where)->count();
 
         // 肉类
-        $dir = CLASSIFICATION_PATH. 'roulei/';
-        $meatFile = scandir($dir);
-        unset($meatFile[0], $meatFile[1]);
-        $meatFilePage = array_slice($meatFile, $beginMeat, $offset, true);
-        foreach ($meatFilePage as $key => $name) {
-            $content = file_get_contents($dir. $name);
-            $tip = strpos($content, ',');
-            $title =substr($content, 0, $tip);
-            $fileData['meatFile']['files'][] = ['id' =>$key, 'name' => $title, 'file' => $name];
+        $where = ['type' => 3];
+        $meatFilePage = $this->_objClassify->getPageData($where, $beginMeat, $offset);
+        foreach ($meatFilePage as $key => $item) {
+//            $content = $name['content'];
+            $title = $item['title'];
+            $name = $item['text_name'];
+            $needClassify = $item['need_classify'];
+            $hasFeedback = ['classify_id' => $name, 'user_id' => $number];
+            $iNeed = 0;
+            if ($this->_objUserClassify->hasFeedback($hasFeedback)) {
+                $iNeed = 1;
+            }
+            $fileData['meatFile']['files'][] = ['id' =>$item['id'], 'name' =>$title, 'file' => $name, 'need_classify' => $needClassify, 'i_need' => $iNeed];
         }
-        $fileData['meatFile']['count'] = count($meatFile);
+        $fileData['meatFile']['count'] = $this->_objClassify->where($where)->count();
+
 
         // 酒类
-        $dir = CLASSIFICATION_PATH. 'jiulei/';
-        $wineFile = scandir($dir);
-        unset($wineFile[0], $wineFile[1]);
-        $wineFilePage = array_slice($wineFile, $beginWine, $offset, true);
-        foreach ($wineFilePage as $key => $name) {
-            $content = file_get_contents($dir. $name);
-            $tip = strpos($content, ',');
-            $title =substr($content, 0, $tip);
-            $fileData['wineFile']['files'][] = ['id' =>$key, 'name' =>$title, 'file' => $name];
+        $where = ['type' => 2];
+        $wineFilePage = $this->_objClassify->getPageData($where, $beginWine, $offset);
+        foreach ($wineFilePage as $key => $item) {
+//            $content = $name['content'];
+            $title = $item['title'];
+            $name = $item['text_name'];
+            $needClassify = $item['need_classify'];
+            $hasFeedback = ['classify_id' => $name, 'user_id' => $number];
+            $iNeed = 0;
+            if ($this->_objUserClassify->hasFeedback($hasFeedback)) {
+                $iNeed = 1;
+            }
+            $fileData['wineFile']['files'][] = ['id' =>$item['id'], 'name' =>$title, 'file' => $name, 'need_classify' => $needClassify, 'i_need' => $iNeed];
         }
-        $fileData['wineFile']['count'] = count($wineFile);
+        $fileData['wineFile']['count'] = $this->_objClassify->where($where)->count();
+
 
         // 奶类
-        $dir = CLASSIFICATION_PATH. 'nailei/';
-        $milkFile = scandir($dir);
-        unset($milkFile[0], $milkFile[1]);
-        $milkFilePage = array_slice($milkFile, $beginMilk, $offset, true);
-        foreach ($milkFilePage as $key => $name) {
-            $content = file_get_contents($dir. $name);
-            $tip = strpos($content, ',');
-            $title =substr($content, 0, $tip);
-            $fileData['milkFile']['files'][] = ['id' =>$key, 'name' =>$title, 'file' => $name];
+        $where = ['type' => 4];
+        $milkFilePage = $this->_objClassify->getPageData($where, $beginMilk, $offset);
+        foreach ($milkFilePage as $key => $item) {
+//            $content = $name['content'];
+            $title = $item['title'];
+            $name = $item['text_name'];
+            $needClassify = $item['need_classify'];
+            $hasFeedback = ['classify_id' => $name, 'user_id' => $number];
+            $iNeed = 0;
+            if ($this->_objUserClassify->hasFeedback($hasFeedback)) {
+                $iNeed = 1;
+            }
+            $fileData['milkFile']['files'][] = ['id' =>$item['id'], 'name' =>$title, 'file' => $name, 'need_classify' => $needClassify, 'i_need' => $iNeed];
         }
-        $fileData['milkFile']['count'] = count($milkFile);
+        $fileData['milkFile']['count'] = $this->_objClassify->where($where)->count();
+
+
 
         $this->assign('arrData', $fileData);
         $this->assign('page', $page);
@@ -134,25 +139,58 @@ class Index extends Controller
         $file = Request::instance()->get('name');
         $type = intval(Request::instance()->get('type'));
 
-        $content = '';
-        switch ($type)
-        {
-            case self::FOOD_TYPE : $content = file_get_contents(CLASSIFICATION_PATH. 'shipin/'. $file);
-                break;
-            case self::WINE_TYPE : $content = file_get_contents(CLASSIFICATION_PATH. 'jiulei/'. $file);
-                break;
-            case self::MEAT_TYPE : $content = file_get_contents(CLASSIFICATION_PATH. 'roulei/'. $file);
-                break;
-            case self::MILK_TYPE : $content = file_get_contents(CLASSIFICATION_PATH. 'nailei/'. $file);
-                break;
-        }
+        $where = ['text_name' => $file, 'type' => $type];
+
+        $content = $this->_objClassify->getContent($where);
+
         $this->assign('type', $arrType[$type]);
         $this->assign('filename', $file);
-        $tip = strpos($content, ',');
-        $title =substr($content, 0, $tip);
+        $title = $content['title'];
         $this->assign('title', mb_substr($title, 0, 30, 'utf-8'));
-        $this->assign('content', $content);
+        $this->assign('content', $content['content']);
         return $this->fetch();
+    }
+
+    // 仅打开文本
+    public function onlyReadFile()
+    {
+        $arrType = [
+            1 => '食品数据',
+            2 => '酒类',
+            3 => '肉类',
+            4 => '奶类',
+        ];
+        $file = Request::instance()->get('name');
+        $type = intval(Request::instance()->get('type'));
+
+        $where = ['text_name' => $file, 'type' => $type];
+
+        $content = $this->_objClassify->getContent($where);
+
+        $this->assign('type', $arrType[$type]);
+        $this->assign('filename', $file);
+        $title = $content['title'];
+        $this->assign('title', mb_substr($title, 0, 30, 'utf-8'));
+        $this->assign('content', $content['content']);
+        return $this->fetch();
+    }
+
+    // feedback
+    public function feedback()
+    {
+        $belong = [
+            1 => 'belong_food',
+            2 => 'belong_wine',
+            3 => 'belong_meat',
+            4 => 'belong_milk',
+            5 => 'belong_others'
+        ];
+        $post = $this->request->post();
+        $data = ['user_id' => intval($post['number']), 'classify_id' => $post['text_name'], 'suggest' => $post['suggest']];
+        $where = ['text_name' => $post['text_name']];
+        $belongWhat = intval($post['type']);
+        $this->_objClassify->feedback($where, $data, $belong[$belongWhat]);
+        $this->success('标注成功，感谢你的标注，我们会尽快更新标注信息', '/index/label');
     }
 
     // 删除文本
