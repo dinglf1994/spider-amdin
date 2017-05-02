@@ -133,6 +133,11 @@ class Label extends Controller
         return $this->fetch();
     }
 
+    public function user()
+    {
+        return 'user';
+    }
+
     // 打开文本
     public function readFile()
     {

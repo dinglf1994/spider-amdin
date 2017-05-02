@@ -15,6 +15,9 @@ class Index extends Controller
     const WINE_TYPE = 2;
     const MEAT_TYPE = 3;
     const MILK_TYPE = 4;
+
+    const NORMAL_USER = 1;
+    const ADMIN_USER = 2;
     public function __construct(Request $request, User $user, Classify $classify)
     {
         parent::__construct($request);
@@ -34,7 +37,12 @@ class Index extends Controller
         if ($this->_objUser->verify($login) && $name = $this->_objUser->updateLoginState($login['number'])) {
             Session::set('userNumber', $login['number']);
             Session::set('name', $name['name']);
-            $this->success('登陆成功，正在跳转', '/index/label');
+            Session::set('rank', $name['rank']);
+            if (self::NORMAL_USER == $name['rank']) {
+                $this->success('登陆成功，正在跳转', '/index/label/user');
+            } else {
+                $this->success('登陆成功，正在跳转', '/index/label');
+            }
         }else {
             $this->error('登陆失败。。。');
         }

@@ -33,7 +33,7 @@ class User extends Model
         $where['number'] = $number;
         $data = ['last_login_time' => date('Y-m-d H:i:s')];
         if ($user->where($where)->setInc('login_times', 1) && $this->save($data, $where)) {
-            $name = $user->where($where)->field('name')->find();
+            $name = $user->where($where)->field('name, rank')->find();
             return $name;
         }else {
             return false;
