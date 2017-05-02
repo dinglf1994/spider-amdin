@@ -139,7 +139,7 @@ class Label extends Controller
         $number = Session::get('userNumber');
         $labelArr = $this->_objClassify->getLabelArr($number);
         if (empty($labelArr) || count($labelArr) != 5) {
-            $this->success('恭喜你以完成所有标记任务，听首歌休息下吧 ^_^', '/index/player/music');
+            $this->success('恭喜你以完成所有标记任务，听首歌休息下吧 ^_^', '/index/player/video');
         }else {
             foreach ($labelArr as $key => &$value) {
                 $value['title'] = mb_substr($value['title'], 0, 20, 'UTF-8');
