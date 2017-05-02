@@ -138,7 +138,7 @@ class Label extends Controller
     {
         $number = Session::get('userNumber');
         $labelArr = $this->_objClassify->getLabelArr($number);
-        if (empty($labelArr) || count($labelArr) != 4) {
+        if (empty($labelArr) || count($labelArr) != 5) {
             $this->success('恭喜你以完成所有标记任务，听首歌休息下吧 ^_^', '/index/player/music');
         }else {
             foreach ($labelArr as $key => &$value) {
