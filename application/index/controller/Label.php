@@ -135,7 +135,7 @@ class Label extends Controller
 
     public function user()
     {
-        return 'user';
+        return $this->fetch();
     }
 
     // 打开文本
