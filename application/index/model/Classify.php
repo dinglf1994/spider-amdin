@@ -9,6 +9,7 @@
 namespace app\index\model;
 
 
+use think\Db;
 use think\Model;
 
 class Classify extends Model
@@ -28,7 +29,17 @@ class Classify extends Model
         $classify = new Classify();
         return $classify->where($where)->find();
     }
-
+    // 获取用户标注数组
+    public function getLabelArr($number)
+    {
+        $sql = "SELECT * FROM `cs_classify` WHERE `text_name` NOT IN (SELECT `classify_id` FROM `cs_user_classify` WHERE `user_id` = $number) AND `need_classify` != 2 ORDER BY RAND() LIMIT 5";
+        $labelArr = Db::query($sql);
+        if (empty($labelArr)) {
+            return false;
+        }else {
+            return $labelArr;
+        }
+    }
     // feedback
     public function feedback($where, $data, $inc)
     {
@@ -42,5 +53,21 @@ class Classify extends Model
             $classify->save($dontNeed, $where);
         }
         $userClassify->saveAllFile($data);
+    }
+    // feedback array
+    public function feedbackArr($where, $data, $inc)
+    {
+        $classify = new Classify();
+        $userClassify = new UserClassify();
+        foreach ($where as $k => $v) {
+            $classify->where($v)->setInc($inc[$k], 1);
+//            var_dump($belongNum);
+            $needClassify = $classify->where($v)->field($inc[$k])->find();
+            if ($needClassify[$inc[$k]] >= 2) {
+                $dontNeed = ['need_classify' => 2];
+                $classify->save($dontNeed, $v);
+            }
+        }
+        $userClassify->saveAll($data);
     }
 }

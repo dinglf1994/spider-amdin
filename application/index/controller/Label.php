@@ -133,11 +133,48 @@ class Label extends Controller
         return $this->fetch();
     }
 
+    // 用户标记界面
     public function user()
     {
+        $number = Session::get('userNumber');
+        $labelArr = $this->_objClassify->getLabelArr($number);
+        if (empty($labelArr) || count($labelArr) != 4) {
+            $this->success('恭喜你以完成所有标记任务，听首歌休息下吧 ^_^', '/index/player/music');
+        }else {
+            foreach ($labelArr as $key => &$value) {
+                $value['title'] = mb_substr($value['title'], 0, 20, 'UTF-8');
+            }
+            $this->assign('labelArr', $labelArr);
+        }
         return $this->fetch();
     }
 
+    // 用户标记界面提交反馈
+    public function userLabel()
+    {
+        $belong = [
+        1 => 'belong_food',
+        2 => 'belong_wine',
+        3 => 'belong_meat',
+        4 => 'belong_milk',
+        5 => 'belong_others'
+    ];
+        if ($this->request->isPost()) {
+            $post = $this->request->post();
+            $data = [];
+            $where = [];
+            $belongWhat = [];
+            for ($i = 1; $i <= 5; $i++) {
+                $data[] = ['user_id' => intval($post["number{$i}"]), 'classify_id' => $post["text_name{$i}"], 'suggest' => $post["suggest{$i}"]];
+                $where[] = ['text_name' => $post["text_name{$i}"]];
+                $belongWhat[] = $belong[intval($post["type{$i}"])];
+            }
+            $this->_objClassify->feedbackArr($where, $data, $belongWhat);
+            $this->success('标注成功，感谢你的标注，我们会尽快更新标注信息', '/index/label/user');
+        }else {
+            $this->error('错误的参数访问，正在返回。');
+        }
+    }
     // 打开文本
     public function readFile()
     {
