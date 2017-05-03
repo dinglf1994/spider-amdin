@@ -33,103 +33,107 @@ class Label extends Controller
 
     public function index()
     {
-        $pageFood = Request::instance()->get('pd') ? Request::instance()->get('pd') : 1;
-        $pageMeat = Request::instance()->get('pt') ? Request::instance()->get('pt') : 1;
-        $pageMilk = Request::instance()->get('pk') ? Request::instance()->get('pk') : 1;
-        $pageWine = Request::instance()->get('pn') ? Request::instance()->get('pn') : 1;
-        $pageFood < 1 ? 1 : $pageFood;
-        $beginFood = ($pageFood - 1) * 10;
-        $pageMeat < 1 ? 1 : $pageMeat;
-        $beginMeat = ($pageMeat - 1) * 10;
-        $pageMilk < 1 ? 1 : $pageMilk;
-        $beginMilk = ($pageMilk - 1) * 10;
-        $pageWine < 1 ? 1 : $pageWine;
-        $beginWine = ($pageWine - 1) * 10;
-        $offset = 10;
+        if (Session::get('rank') < 2) {
+            $this->error('访问权限不够，返回中。。。');
+        }else {
+            $pageFood = Request::instance()->get('pd') ? Request::instance()->get('pd') : 1;
+            $pageMeat = Request::instance()->get('pt') ? Request::instance()->get('pt') : 1;
+            $pageMilk = Request::instance()->get('pk') ? Request::instance()->get('pk') : 1;
+            $pageWine = Request::instance()->get('pn') ? Request::instance()->get('pn') : 1;
+            $pageFood < 1 ? 1 : $pageFood;
+            $beginFood = ($pageFood - 1) * 10;
+            $pageMeat < 1 ? 1 : $pageMeat;
+            $beginMeat = ($pageMeat - 1) * 10;
+            $pageMilk < 1 ? 1 : $pageMilk;
+            $beginMilk = ($pageMilk - 1) * 10;
+            $pageWine < 1 ? 1 : $pageWine;
+            $beginWine = ($pageWine - 1) * 10;
+            $offset = 10;
 
-        // 当前页码
-        $page = ['food' => $pageFood,
-            'meat' => $pageMeat,
-            'milk' => $pageMilk,
-            'wine' => $pageWine
-        ];
+            // 当前页码
+            $page = ['food' => $pageFood,
+                'meat' => $pageMeat,
+                'milk' => $pageMilk,
+                'wine' => $pageWine
+            ];
 
-        $number = intval(Session::get('userNumber'));
+            $number = intval(Session::get('userNumber'));
 
-        // 食品
-        $where = ['type' => 1];
-        $foodFilePage = $this->_objClassify->getPageData($where, $beginFood, $offset);
-        foreach ($foodFilePage as $key => $item) {
+            // 食品
+            $where = ['type' => 1];
+            $foodFilePage = $this->_objClassify->getPageData($where, $beginFood, $offset);
+            foreach ($foodFilePage as $key => $item) {
 //            $content = $name['content'];
-            $title = $item['title'];
-            $name = $item['text_name'];
-            $needClassify = $item['need_classify'];
-            $hasFeedback = ['classify_id' => $name, 'user_id' => $number];
-            $iNeed = 0;
-            if ($this->_objUserClassify->hasFeedback($hasFeedback)) {
-                $iNeed = 1;
+                $title = $item['title'];
+                $name = $item['text_name'];
+                $needClassify = $item['need_classify'];
+                $hasFeedback = ['classify_id' => $name, 'user_id' => $number];
+                $iNeed = 0;
+                if ($this->_objUserClassify->hasFeedback($hasFeedback)) {
+                    $iNeed = 1;
+                }
+                $fileData['foodFile']['files'][] = ['id' =>$item['id'], 'name' =>$title, 'file' => $name, 'need_classify' => $needClassify, 'i_need' => $iNeed];
             }
-            $fileData['foodFile']['files'][] = ['id' =>$item['id'], 'name' =>$title, 'file' => $name, 'need_classify' => $needClassify, 'i_need' => $iNeed];
-        }
-        $fileData['foodFile']['count'] = $this->_objClassify->where($where)->count();
+            $fileData['foodFile']['count'] = $this->_objClassify->where($where)->count();
 
-        // 肉类
-        $where = ['type' => 3];
-        $meatFilePage = $this->_objClassify->getPageData($where, $beginMeat, $offset);
-        foreach ($meatFilePage as $key => $item) {
+            // 肉类
+            $where = ['type' => 3];
+            $meatFilePage = $this->_objClassify->getPageData($where, $beginMeat, $offset);
+            foreach ($meatFilePage as $key => $item) {
 //            $content = $name['content'];
-            $title = $item['title'];
-            $name = $item['text_name'];
-            $needClassify = $item['need_classify'];
-            $hasFeedback = ['classify_id' => $name, 'user_id' => $number];
-            $iNeed = 0;
-            if ($this->_objUserClassify->hasFeedback($hasFeedback)) {
-                $iNeed = 1;
+                $title = $item['title'];
+                $name = $item['text_name'];
+                $needClassify = $item['need_classify'];
+                $hasFeedback = ['classify_id' => $name, 'user_id' => $number];
+                $iNeed = 0;
+                if ($this->_objUserClassify->hasFeedback($hasFeedback)) {
+                    $iNeed = 1;
+                }
+                $fileData['meatFile']['files'][] = ['id' =>$item['id'], 'name' =>$title, 'file' => $name, 'need_classify' => $needClassify, 'i_need' => $iNeed];
             }
-            $fileData['meatFile']['files'][] = ['id' =>$item['id'], 'name' =>$title, 'file' => $name, 'need_classify' => $needClassify, 'i_need' => $iNeed];
-        }
-        $fileData['meatFile']['count'] = $this->_objClassify->where($where)->count();
+            $fileData['meatFile']['count'] = $this->_objClassify->where($where)->count();
 
 
-        // 酒类
-        $where = ['type' => 2];
-        $wineFilePage = $this->_objClassify->getPageData($where, $beginWine, $offset);
-        foreach ($wineFilePage as $key => $item) {
+            // 酒类
+            $where = ['type' => 2];
+            $wineFilePage = $this->_objClassify->getPageData($where, $beginWine, $offset);
+            foreach ($wineFilePage as $key => $item) {
 //            $content = $name['content'];
-            $title = $item['title'];
-            $name = $item['text_name'];
-            $needClassify = $item['need_classify'];
-            $hasFeedback = ['classify_id' => $name, 'user_id' => $number];
-            $iNeed = 0;
-            if ($this->_objUserClassify->hasFeedback($hasFeedback)) {
-                $iNeed = 1;
+                $title = $item['title'];
+                $name = $item['text_name'];
+                $needClassify = $item['need_classify'];
+                $hasFeedback = ['classify_id' => $name, 'user_id' => $number];
+                $iNeed = 0;
+                if ($this->_objUserClassify->hasFeedback($hasFeedback)) {
+                    $iNeed = 1;
+                }
+                $fileData['wineFile']['files'][] = ['id' =>$item['id'], 'name' =>$title, 'file' => $name, 'need_classify' => $needClassify, 'i_need' => $iNeed];
             }
-            $fileData['wineFile']['files'][] = ['id' =>$item['id'], 'name' =>$title, 'file' => $name, 'need_classify' => $needClassify, 'i_need' => $iNeed];
-        }
-        $fileData['wineFile']['count'] = $this->_objClassify->where($where)->count();
+            $fileData['wineFile']['count'] = $this->_objClassify->where($where)->count();
 
 
-        // 奶类
-        $where = ['type' => 4];
-        $milkFilePage = $this->_objClassify->getPageData($where, $beginMilk, $offset);
-        foreach ($milkFilePage as $key => $item) {
+            // 奶类
+            $where = ['type' => 4];
+            $milkFilePage = $this->_objClassify->getPageData($where, $beginMilk, $offset);
+            foreach ($milkFilePage as $key => $item) {
 //            $content = $name['content'];
-            $title = $item['title'];
-            $name = $item['text_name'];
-            $needClassify = $item['need_classify'];
-            $hasFeedback = ['classify_id' => $name, 'user_id' => $number];
-            $iNeed = 0;
-            if ($this->_objUserClassify->hasFeedback($hasFeedback)) {
-                $iNeed = 1;
+                $title = $item['title'];
+                $name = $item['text_name'];
+                $needClassify = $item['need_classify'];
+                $hasFeedback = ['classify_id' => $name, 'user_id' => $number];
+                $iNeed = 0;
+                if ($this->_objUserClassify->hasFeedback($hasFeedback)) {
+                    $iNeed = 1;
+                }
+                $fileData['milkFile']['files'][] = ['id' =>$item['id'], 'name' =>$title, 'file' => $name, 'need_classify' => $needClassify, 'i_need' => $iNeed];
             }
-            $fileData['milkFile']['files'][] = ['id' =>$item['id'], 'name' =>$title, 'file' => $name, 'need_classify' => $needClassify, 'i_need' => $iNeed];
+            $fileData['milkFile']['count'] = $this->_objClassify->where($where)->count();
+
+
+
+            $this->assign('arrData', $fileData);
+            $this->assign('page', $page);
         }
-        $fileData['milkFile']['count'] = $this->_objClassify->where($where)->count();
-
-
-
-        $this->assign('arrData', $fileData);
-        $this->assign('page', $page);
         return $this->fetch();
     }
 
