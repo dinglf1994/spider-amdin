@@ -512,13 +512,11 @@
       <h2 class="page-header">文本详情</h2>
 
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
           <div class="box box-solid">
             <div class="box-header with-border">
               <h3 class="box-title">文本列表</h3>
             </div>
-
-            <form action="/index/label/userLabel" method="post" id="form1">
             <!-- /.box-header -->
             <div class="box-body">
               <div class="box-group" id="accordion">
@@ -535,45 +533,6 @@
                     <div class="box-body">
                       {$labelArr[0]['content']|default="文本不足"}
                     </div>
-                    <div class="box-body">
-                          <div class="box box-default">
-                              <!-- /.box-header -->
-                              <div class="box-body">
-                                  <div class="row">
-                                      <div class="col-md-6">
-                                          <div class="form-group">
-                                              <label for="type1">文档应属于：</label>
-                                              <select name="type1" id="type1" class="form-control select2" style="width: 100%;">
-                                                  <option selected value="">请选择</option>
-                                                  <option value="2">酒类</option>
-                                                  <option value="3">肉类</option>
-                                                  <option value="4">奶类</option>
-                                                  <option value="1">食品</option>
-                                                  <option value="5">其他</option>
-                                              </select>
-                                          </div>
-
-                                          <div class="form-group">
-                                              <label for="exampleInputNumber1">你的学号：</label>
-                                              <input readonly name="number1" type="text" class="form-control" id="exampleInputNumber1" value="{$Think.session.userNumber}">
-                                          </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <div style="display: none" class="form-group">
-                                              <label for="exampleInputTextName">文本编号：</label>
-                                              <input readonly name="text_name1" type="text" class="form-control" id="exampleInputTextName" value="{$labelArr[0]['text_name']}">
-                                          </div>
-                                          <div class="form-group">
-                                              <label>你的意见：</label>
-                                              <textarea name="suggest1" class="form-control" rows="3" placeholder="可空"></textarea>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <!-- /.row -->
-                              </div>
-                              <!-- /.box-body -->
-                          </div>
-                      </div>
                   </div>
                 </div>
                 <div class="panel box box-danger">
@@ -588,47 +547,6 @@
                     <div class="box-body">
                       {$labelArr[1]['content']|default="文本不足"}
                     </div>
-                    <div class="box-body">
-                          <div class="box-body">
-                              <div class="box box-default">
-                                  <!-- /.box-header -->
-                                  <div class="box-body">
-                                      <div class="row">
-                                          <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="type2">文档应属于：</label>
-                                                  <select name="type2" id="type2" class="form-control select2" style="width: 100%;">
-                                                      <option selected value="">请选择</option>
-                                                      <option value="2">酒类</option>
-                                                      <option value="3">肉类</option>
-                                                      <option value="4">奶类</option>
-                                                      <option value="1">食品</option>
-                                                      <option value="5">其他</option>
-                                                  </select>
-                                              </div>
-
-                                              <div class="form-group">
-                                                  <label for="exampleInputNumber2">你的学号：</label>
-                                                  <input readonly name="number2" type="text" class="form-control" id="exampleInputNumber2" value="{$Think.session.userNumber}">
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6">
-                                              <div style="display: none" class="form-group">
-                                                  <label for="exampleInputTextName2">文本编号：</label>
-                                                  <input readonly name="text_name2" type="text" class="form-control" id="exampleInputTextName2" value="{$labelArr[1]['text_name']}">
-                                              </div>
-                                              <div class="form-group">
-                                                  <label>你的意见：</label>
-                                                  <textarea name="suggest2" class="form-control" rows="3" placeholder="可空"></textarea>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <!-- /.row -->
-                                  </div>
-                                  <!-- /.box-body -->
-                              </div>
-                          </div>
-                      </div>
                   </div>
                 </div>
                 <div class="panel box box-success">
@@ -643,47 +561,6 @@
                     <div class="box-body">
                       {$labelArr[2]['content']|default="文本不足"}
                     </div>
-                    <div class="box-body">
-                          <div class="box-body">
-                              <div class="box box-default">
-                                  <!-- /.box-header -->
-                                  <div class="box-body">
-                                      <div class="row">
-                                          <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="type3">文档应属于：</label>
-                                                  <select name="type3" id="type3" class="form-control select2" style="width: 100%;">
-                                                      <option selected value="">请选择</option>
-                                                      <option value="2">酒类</option>
-                                                      <option value="3">肉类</option>
-                                                      <option value="4">奶类</option>
-                                                      <option value="1">食品</option>
-                                                      <option value="5">其他</option>
-                                                  </select>
-                                              </div>
-
-                                              <div class="form-group">
-                                                  <label for="exampleInputNumber3">你的学号：</label>
-                                                  <input readonly name="number3" type="text" class="form-control" id="exampleInputNumber3" value="{$Think.session.userNumber}">
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6">
-                                              <div style="display: none" class="form-group">
-                                                  <label for="exampleInputTextName3">文本编号：</label>
-                                                  <input readonly name="text_name3" type="text" class="form-control" id="exampleInputTextName3" value="{$labelArr[2]['text_name']}">
-                                              </div>
-                                              <div class="form-group">
-                                                  <label>你的意见：</label>
-                                                  <textarea name="suggest3" class="form-control" rows="3" placeholder="可空"></textarea>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <!-- /.row -->
-                                  </div>
-                                  <!-- /.box-body -->
-                              </div>
-                          </div>
-                      </div>
                   </div>
                 </div>
                 <div class="panel box box-info">
@@ -698,47 +575,6 @@
                     <div class="box-body">
                       {$labelArr[3]['content']|default="文本不足"}
                     </div>
-                    <div class="box-body">
-                          <div class="box-body">
-                              <div class="box box-default">
-                                  <!-- /.box-header -->
-                                  <div class="box-body">
-                                      <div class="row">
-                                          <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="type4">文档应属于：</label>
-                                                  <select name="type4" id="type4" class="form-control select2" style="width: 100%;">
-                                                      <option selected value="">请选择</option>
-                                                      <option value="2">酒类</option>
-                                                      <option value="3">肉类</option>
-                                                      <option value="4">奶类</option>
-                                                      <option value="1">食品</option>
-                                                      <option value="5">其他</option>
-                                                  </select>
-                                              </div>
-
-                                              <div class="form-group">
-                                                  <label for="exampleInputNumber4">你的学号：</label>
-                                                  <input readonly name="number4" type="text" class="form-control" id="exampleInputNumber4" value="{$Think.session.userNumber}">
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6">
-                                              <div style="display: none" class="form-group">
-                                                  <label for="exampleInputTextName4">文本编号：</label>
-                                                  <input readonly name="text_name4" type="text" class="form-control" id="exampleInputTextName4" value="{$labelArr[3]['text_name']}">
-                                              </div>
-                                              <div class="form-group">
-                                                  <label>你的意见：</label>
-                                                  <textarea name="suggest4" class="form-control" rows="3" placeholder="可空"></textarea>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <!-- /.row -->
-                                  </div>
-                                  <!-- /.box-body -->
-                              </div>
-                          </div>
-                      </div>
                   </div>
                 </div>
                 <div class="panel box box-warning">
@@ -753,62 +589,354 @@
                     <div class="box-body">
                       {$labelArr[4]['content']|default="文本不足"}
                     </div>
-                    <div class="box-body">
-                          <div class="box-body">
-                              <div class="box box-default">
-                                  <!-- /.box-header -->
-                                  <div class="box-body">
-                                      <div class="row">
-                                          <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label for="type5">文档应属于：</label>
-                                                  <select name="type5" id="type5" class="form-control select2" style="width: 100%;">
-                                                      <option selected value="">请选择</option>
-                                                      <option value="2">酒类</option>
-                                                      <option value="3">肉类</option>
-                                                      <option value="4">奶类</option>
-                                                      <option value="1">食品</option>
-                                                      <option value="5">其他</option>
-                                                  </select>
-                                              </div>
-
-                                              <div class="form-group">
-                                                  <label for="exampleInputNumber5">你的学号：</label>
-                                                  <input readonly name="number5" type="text" class="form-control" id="exampleInputNumber5" value="{$Think.session.userNumber}">
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6">
-                                              <div style="display: none" class="form-group">
-                                                  <label for="exampleInputTextName5">文本编号：</label>
-                                                  <input readonly name="text_name5" type="text" class="form-control" id="exampleInputTextName5" value="{$labelArr[4]['text_name']}">
-                                              </div>
-                                              <div class="form-group">
-                                                  <label>你的意见：</label>
-                                                  <textarea name="suggest5" class="form-control" rows="3" placeholder="可空"></textarea>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <!-- /.row -->
-                                  </div>
-                                  <!-- /.box-body -->
-                              </div>
-                          </div>
-                      </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="box-footer">
-                <button id="submit" type="submit" class="btn btn-primary">提交</button>
-            </div>
-            <div class="box-footer">
-                    联系<a href="https://github.com/dinglf1994">GitHub</a>食品数据爬虫
-                </div>
-            </form>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
         </div>
+        <!-- /.col -->
+        <form action="/index/label/userLabel" method="post" id="form1">
+        <div class="col-md-6">
+          <div class="box box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">文本标注</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="box-group" id="accordionA">
+                <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                <div class="panel box box-primary">
+                  <div class="box-header with-border">
+                    <h4 class="box-title">
+                      <a data-toggle="collapse" data-parent="#accordionA" href="#collapse1a">
+                        《{$labelArr[0]['title']|default="文本不足"}》
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapse1a" class="panel-collapse collapse in">
+                    <div class="box-body">
+                      <div class="box box-default">
+                          <!-- /.box-header -->
+                          <div class="box-body">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="type1">文档应属于：</label>
+                                  <select name="type1" id="type1" class="form-control select2" style="width: 100%;">
+                                    <option selected value="">请选择</option>
+                                    <option value="2">酒类</option>
+                                    <option value="3">肉类</option>
+                                    <option value="4">奶类</option>
+                                    <option value="1">食品</option>
+                                    <option value="5">其他</option>
+                                  </select>
+                                </div>
+
+                                <div class="form-group">
+                                  <label for="exampleInputNumber1">你的学号：</label>
+                                  <input readonly name="number1" type="text" class="form-control" id="exampleInputNumber1" value="{$Think.session.userNumber}">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="exampleInputTextName">文本编号：</label>
+                                  <input readonly name="text_name1" type="text" class="form-control" id="exampleInputTextName" value="{$labelArr[0]['text_name']}">
+                                </div>
+                                <div class="form-group">
+                                  <label>你的意见：</label>
+                                  <textarea name="suggest1" class="form-control" rows="3" placeholder="可空"></textarea>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /.row -->
+                          </div>
+                        <!-- /.box-body -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel box box-danger">
+                  <div class="box-header with-border">
+                    <h4 class="box-title">
+                      <a data-toggle="collapse" data-parent="#accordionA" href="#collapse2a">
+                        《{$labelArr[1]['title']|default="文本不足"}》
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapse2a" class="panel-collapse collapse">
+                    <div class="box-body">
+                      <div class="box-body">
+                        <div class="box box-default">
+                          <!-- /.box-header -->
+                          <div class="box-body">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="type2">文档应属于：</label>
+                                  <select name="type2" id="type2" class="form-control select2" style="width: 100%;">
+                                    <option selected value="">请选择</option>
+                                    <option value="2">酒类</option>
+                                    <option value="3">肉类</option>
+                                    <option value="4">奶类</option>
+                                    <option value="1">食品</option>
+                                    <option value="5">其他</option>
+                                  </select>
+                                </div>
+
+                                <div class="form-group">
+                                  <label for="exampleInputNumber2">你的学号：</label>
+                                  <input readonly name="number2" type="text" class="form-control" id="exampleInputNumber2" value="{$Think.session.userNumber}">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="exampleInputTextName2">文本编号：</label>
+                                  <input readonly name="text_name2" type="text" class="form-control" id="exampleInputTextName2" value="{$labelArr[1]['text_name']}">
+                                </div>
+                                <div class="form-group">
+                                  <label>你的意见：</label>
+                                  <textarea name="suggest2" class="form-control" rows="3" placeholder="可空"></textarea>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /.row -->
+                          </div>
+                          <!-- /.box-body -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel box box-success">
+                  <div class="box-header with-border">
+                    <h4 class="box-title">
+                      <a data-toggle="collapse" data-parent="#accordionA" href="#collapse3a">
+                        《{$labelArr[2]['title']|default="文本不足"}》
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapse3a" class="panel-collapse collapse">
+                    <div class="box-body">
+                      <div class="box-body">
+                        <div class="box box-default">
+                          <!-- /.box-header -->
+                          <div class="box-body">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="type3">文档应属于：</label>
+                                  <select name="type3" id="type3" class="form-control select2" style="width: 100%;">
+                                    <option selected value="">请选择</option>
+                                    <option value="2">酒类</option>
+                                    <option value="3">肉类</option>
+                                    <option value="4">奶类</option>
+                                    <option value="1">食品</option>
+                                    <option value="5">其他</option>
+                                  </select>
+                                </div>
+
+                                <div class="form-group">
+                                  <label for="exampleInputNumber3">你的学号：</label>
+                                  <input readonly name="number3" type="text" class="form-control" id="exampleInputNumber3" value="{$Think.session.userNumber}">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="exampleInputTextName3">文本编号：</label>
+                                  <input readonly name="text_name3" type="text" class="form-control" id="exampleInputTextName3" value="{$labelArr[2]['text_name']}">
+                                </div>
+                                <div class="form-group">
+                                  <label>你的意见：</label>
+                                  <textarea name="suggest3" class="form-control" rows="3" placeholder="可空"></textarea>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /.row -->
+                          </div>
+                          <!-- /.box-body -->
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+                <div class="panel box box-info">
+                  <div class="box-header with-border">
+                    <h4 class="box-title">
+                      <a data-toggle="collapse" data-parent="#accordionA" href="#collapse4a">
+                        《{$labelArr[3]['title']|default="文本不足"}》
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapse4a" class="panel-collapse collapse">
+                    <div class="box-body">
+                      <div class="box-body">
+                        <div class="box box-default">
+                          <!-- /.box-header -->
+                          <div class="box-body">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="type4">文档应属于：</label>
+                                  <select name="type4" id="type4" class="form-control select2" style="width: 100%;">
+                                    <option selected value="">请选择</option>
+                                    <option value="2">酒类</option>
+                                    <option value="3">肉类</option>
+                                    <option value="4">奶类</option>
+                                    <option value="1">食品</option>
+                                    <option value="5">其他</option>
+                                  </select>
+                                </div>
+
+                                <div class="form-group">
+                                  <label for="exampleInputNumber4">你的学号：</label>
+                                  <input readonly name="number4" type="text" class="form-control" id="exampleInputNumber4" value="{$Think.session.userNumber}">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="exampleInputTextName4">文本编号：</label>
+                                  <input readonly name="text_name4" type="text" class="form-control" id="exampleInputTextName4" value="{$labelArr[3]['text_name']}">
+                                </div>
+                                <div class="form-group">
+                                  <label>你的意见：</label>
+                                  <textarea name="suggest4" class="form-control" rows="3" placeholder="可空"></textarea>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /.row -->
+                          </div>
+                          <!-- /.box-body -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel box box-warning">
+                  <div class="box-header with-border">
+                    <h4 class="box-title">
+                      <a data-toggle="collapse" data-parent="#accordionA" href="#collapse5a">
+                        《{$labelArr[4]['title']|default="文本不足"}》
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapse5a" class="panel-collapse collapse">
+                    <div class="box-body">
+                      <div class="box-body">
+                        <div class="box box-default">
+                          <!-- /.box-header -->
+                          <div class="box-body">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="type5">文档应属于：</label>
+                                  <select name="type5" id="type5" class="form-control select2" style="width: 100%;">
+                                    <option selected value="">请选择</option>
+                                    <option value="2">酒类</option>
+                                    <option value="3">肉类</option>
+                                    <option value="4">奶类</option>
+                                    <option value="1">食品</option>
+                                    <option value="5">其他</option>
+                                  </select>
+                                </div>
+
+                                <div class="form-group">
+                                  <label for="exampleInputNumber5">你的学号：</label>
+                                  <input readonly name="number5" type="text" class="form-control" id="exampleInputNumber5" value="{$Think.session.userNumber}">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="exampleInputTextName5">文本编号：</label>
+                                  <input readonly name="text_name5" type="text" class="form-control" id="exampleInputTextName5" value="{$labelArr[4]['text_name']}">
+                                </div>
+                                <div class="form-group">
+                                  <label>你的意见：</label>
+                                  <textarea name="suggest5" class="form-control" rows="3" placeholder="可空"></textarea>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /.row -->
+                          </div>
+                          <!-- /.box-body -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+              <button id="submit" type="submit" class="btn btn-primary">提交</button>
+            </div>
+            <div class="box-footer">
+              联系<a href="https://github.com/dinglf1994">GitHub</a>食品数据爬虫
+            </div>
+          </div>
+          <!-- /.box -->
+          <!--反馈意见入口-->
+          <!-- SELECT2 EXAMPLE -->
+          <!--<div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title">给我们反馈</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+              </div>
+            </div>
+            <form action="/index/label/feedback" method="post">
+              &lt;!&ndash; /.box-header &ndash;&gt;
+              <div class="box-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="type">文档应属于：</label>
+                      <select name="type" id="type" class="form-control select2" style="width: 100%;">
+                        <option value="2" selected="selected">酒类</option>
+                        <option value="3">肉类</option>
+                        <option value="4">奶类</option>
+                        <option value="1">食品</option>
+                        <option value="5">其他</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleInputNumber">你的学号：</label>
+                      <input readonly name="number" type="text" class="form-control" id="exampleInputNumber" value="{$Think.session.userNumber}">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="exampleInputTextName">文本编号：</label>
+                      <input readonly name="text_name" type="text" class="form-control" id="exampleInputTextName" value="">
+                    </div>
+                    <div class="form-group">
+                      <label>你的意见：</label>
+                      <textarea name="suggest" class="form-control" rows="3" placeholder="可空"></textarea>
+                    </div>
+                  </div>
+                </div>
+                &lt;!&ndash; /.row &ndash;&gt;
+              </div>
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">提交</button>
+              </div>
+            </form>
+            &lt;!&ndash; /.box-body &ndash;&gt;
+            <div class="box-footer">
+              联系<a href="https://github.com/dinglf1994">GitHub</a>食品数据爬虫
+            </div>
+          </div>-->
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      </form>
+      <!-- /.row -->
+      <!-- END ACCORDION & CAROUSEL-->
       </div>
     </section>
     <!-- /.content -->
@@ -1047,49 +1175,45 @@
 
 
 <script>
-    $(function () {
-
-        var flag = 0;
-        $('#form1').submit(function () {
-            if ($('#type1 option:selected').val() == '') {
-                $('#type1').parent().addClass('has-error');
-                flag = 1;
-            }else {
-                $('#type1').parent().removeClass('has-error')
-            }
-            if ($('#type2 option:selected').val() == '') {
-                $('#type2').parent().addClass('has-error');
-                flag = 1;
-            }else {
-                $('#type2').parent().removeClass('has-error')
-            }
-            if ($('#type3 option:selected').val() == '') {
-                $('#type3').parent().addClass('has-error');
-                flag = 1;
-            }else {
-                $('#type3').parent().removeClass('has-error')
-            }
-            if ($('#type4 option:selected').val() == '') {
-                $('#type4').parent().addClass('has-error');
-                flag = 1;
-            }else {
-                $('#type4').parent().removeClass('has-error')
-            }
-            if ($('#type5 option:selected').val() == '') {
-                $('#type5').parent().addClass('has-error');
-                flag = 1;
-            }else {
-                $('#type5').parent().removeClass('has-error')
-            }
-            if (flag == 0) {
-                console.info(flag);
-                return true;
-            }else {
-                flag = 0;
-                return false;
-            }
-        });
-    })
+    var flag = 0;
+    $('#form1').submit(function () {
+        if ($('#type1 option:selected').val() == '') {
+            $('#type1').parent().addClass('has-error');
+            flag = 1;
+        }else {
+            $('#type1').parent().removeClass('has-error')
+        }
+        if ($('#type2 option:selected').val() == '') {
+            $('#type2').parent().addClass('has-error');
+            flag = 1;
+        }else {
+            $('#type2').parent().removeClass('has-error')
+        }
+        if ($('#type3 option:selected').val() == '') {
+            $('#type3').parent().addClass('has-error');
+            flag = 1;
+        }else {
+            $('#type3').parent().removeClass('has-error')
+        }
+        if ($('#type4 option:selected').val() == '') {
+            $('#type4').parent().addClass('has-error');
+            flag = 1;
+        }else {
+            $('#type4').parent().removeClass('has-error')
+        }
+        if ($('#type5 option:selected').val() == '') {
+            $('#type5').parent().addClass('has-error');
+            flag = 1;
+        }else {
+            $('#type5').parent().removeClass('has-error')
+        }
+        if (flag == 0) {
+            console.info(flag);
+            return true;
+        }else {
+            return false;
+        }
+    });
 </script>
 
 </body>
