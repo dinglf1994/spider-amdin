@@ -800,6 +800,8 @@
             </div>
             <div class="box-footer">
                 <button id="submit" type="submit" class="btn btn-primary">提交</button>
+                <br>
+                <label id="remind" class="label label-danger">有未标注的文本，无法提交，请标注完再提交</label>
             </div>
             <div class="box-footer">
                     联系<a href="https://github.com/dinglf1994">GitHub</a>食品数据爬虫
@@ -1048,9 +1050,10 @@
 
 <script>
     $(function () {
-
+        $('#remind').hide();
         var flag = 0;
         $('#form1').submit(function () {
+            flag = 0;
             if ($('#type1 option:selected').val() == '') {
                 $('#type1').parent().addClass('has-error');
                 flag = 1;
@@ -1082,10 +1085,11 @@
                 $('#type5').parent().removeClass('has-error')
             }
             if (flag == 0) {
+                $('#remind').hide();
                 console.info(flag);
                 return true;
             }else {
-                flag = 0;
+                $('#remind').show();
                 return false;
             }
         });
