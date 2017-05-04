@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>分类展示页</title>
+  <title>分类搜索页</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
   {css href="/static/adminlte/bootstrap/css/bootstrap.min.css" /}
   {css href="/static/adminlte/bootstrap/css/font-awesome.min.css" /}
   {css href="/static/adminlte/bootstrap/css/ionicons.min.css" /}
-  {css href="/static/adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.css" /}
+  {css href="/static/adminlte/plugins/datatables/dataTables.bootstrap.css" /}
   {css href="/static/adminlte/dist/css/AdminLTE.min.css" /}
-  {css href="/static/adminlte/dist/css/skins/_all-skins.min.css" /}
+  <!--{css href="/static/adminlte/dist/css/skins/_all-skins.min.css" /}-->
 
   <!-- Bootstrap 3.3.6 -->
   <!--<link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">-->
@@ -494,549 +494,463 @@
     <section class="content-header">
       <h1>
         食品数据展示页
-        <small>目前数据情况</small>
+        <small>分类搜索</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> 食品分类信息</a></li>
         <li><a href="#">数据展示</a></li>
-        <li class="active">分类信息</li>
+        <li class="active">分类搜索页</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
 
-      <!-- Info boxes -->
       <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-aqua"><i class="fa fa-hand-peace-o"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">{$iconInfo[0]['name']}</span>
-              <span class="info-box-number">{$iconInfo[0]['number']}</span>
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Data Table With Full Features</h3>
             </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-red"><i class="fa fa-hand-pointer-o"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">{$iconInfo[1]['name']}</span>
-              <span class="info-box-number">{$iconInfo[1]['number']}</span>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Rendering engine</th>
+                  <th>Browser</th>
+                  <th>Platform(s)</th>
+                  <th>Engine version</th>
+                  <th>CSS grade</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Trident</td>
+                  <td>Internet
+                    Explorer 4.0
+                  </td>
+                  <td>Win 95+</td>
+                  <td> 4</td>
+                  <td>X</td>
+                </tr>
+                <tr>
+                  <td>Trident</td>
+                  <td>Internet
+                    Explorer 5.0
+                  </td>
+                  <td>Win 95+</td>
+                  <td>5</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Trident</td>
+                  <td>Internet
+                    Explorer 5.5
+                  </td>
+                  <td>Win 95+</td>
+                  <td>5.5</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Trident</td>
+                  <td>Internet
+                    Explorer 6
+                  </td>
+                  <td>Win 98+</td>
+                  <td>6</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Trident</td>
+                  <td>Internet Explorer 7</td>
+                  <td>Win XP SP2+</td>
+                  <td>7</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Trident</td>
+                  <td>AOL browser (AOL desktop)</td>
+                  <td>Win XP</td>
+                  <td>6</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Firefox 1.0</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Firefox 1.5</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Firefox 2.0</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Firefox 3.0</td>
+                  <td>Win 2k+ / OSX.3+</td>
+                  <td>1.9</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Camino 1.0</td>
+                  <td>OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Camino 1.5</td>
+                  <td>OSX.3+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Netscape 7.2</td>
+                  <td>Win 95+ / Mac OS 8.6-9.2</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Netscape Browser 8</td>
+                  <td>Win 98SE+</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Netscape Navigator 9</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.0</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.1</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.1</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.2</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.2</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.3</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.3</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.4</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.4</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.5</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.5</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.6</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1.6</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.7</td>
+                  <td>Win 98+ / OSX.1+</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Mozilla 1.8</td>
+                  <td>Win 98+ / OSX.1+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Seamonkey 1.1</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Gecko</td>
+                  <td>Epiphany 2.20</td>
+                  <td>Gnome</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>Safari 1.2</td>
+                  <td>OSX.3</td>
+                  <td>125.5</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>Safari 1.3</td>
+                  <td>OSX.3</td>
+                  <td>312.8</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>Safari 2.0</td>
+                  <td>OSX.4+</td>
+                  <td>419.3</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>Safari 3.0</td>
+                  <td>OSX.4+</td>
+                  <td>522.1</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>OmniWeb 5.5</td>
+                  <td>OSX.4+</td>
+                  <td>420</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>iPod Touch / iPhone</td>
+                  <td>iPod</td>
+                  <td>420.1</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Webkit</td>
+                  <td>S60</td>
+                  <td>S60</td>
+                  <td>413</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 7.0</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 7.5</td>
+                  <td>Win 95+ / OSX.2+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 8.0</td>
+                  <td>Win 95+ / OSX.2+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 8.5</td>
+                  <td>Win 95+ / OSX.2+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 9.0</td>
+                  <td>Win 95+ / OSX.3+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 9.2</td>
+                  <td>Win 88+ / OSX.3+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera 9.5</td>
+                  <td>Win 88+ / OSX.3+</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Opera for Wii</td>
+                  <td>Wii</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Nokia N800</td>
+                  <td>N800</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Presto</td>
+                  <td>Nintendo DS browser</td>
+                  <td>Nintendo DS</td>
+                  <td>8.5</td>
+                  <td>C/A<sup>1</sup></td>
+                </tr>
+                <tr>
+                  <td>KHTML</td>
+                  <td>Konqureror 3.1</td>
+                  <td>KDE 3.1</td>
+                  <td>3.1</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>KHTML</td>
+                  <td>Konqureror 3.3</td>
+                  <td>KDE 3.3</td>
+                  <td>3.3</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>KHTML</td>
+                  <td>Konqureror 3.5</td>
+                  <td>KDE 3.5</td>
+                  <td>3.5</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Tasman</td>
+                  <td>Internet Explorer 4.5</td>
+                  <td>Mac OS 8-9</td>
+                  <td>-</td>
+                  <td>X</td>
+                </tr>
+                <tr>
+                  <td>Tasman</td>
+                  <td>Internet Explorer 5.1</td>
+                  <td>Mac OS 7.6-9</td>
+                  <td>1</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Tasman</td>
+                  <td>Internet Explorer 5.2</td>
+                  <td>Mac OS 8-X</td>
+                  <td>1</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>NetFront 3.1</td>
+                  <td>Embedded devices</td>
+                  <td>-</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>NetFront 3.4</td>
+                  <td>Embedded devices</td>
+                  <td>-</td>
+                  <td>A</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>Dillo 0.8</td>
+                  <td>Embedded devices</td>
+                  <td>-</td>
+                  <td>X</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>Links</td>
+                  <td>Text only</td>
+                  <td>-</td>
+                  <td>X</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>Lynx</td>
+                  <td>Text only</td>
+                  <td>-</td>
+                  <td>X</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>IE Mobile</td>
+                  <td>Windows Mobile 6</td>
+                  <td>-</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Misc</td>
+                  <td>PSP browser</td>
+                  <td>PSP</td>
+                  <td>-</td>
+                  <td>C</td>
+                </tr>
+                <tr>
+                  <td>Other browsers</td>
+                  <td>All others</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>U</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>Rendering engine</th>
+                  <th>Browser</th>
+                  <th>Platform(s)</th>
+                  <th>Engine version</th>
+                  <th>CSS grade</th>
+                </tr>
+                </tfoot>
+              </table>
             </div>
-            <!-- /.info-box-content -->
+            <!-- /.box-body -->
           </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-
-        <!-- fix for small devices only -->
-        <div class="clearfix visible-sm-block"></div>
-
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="fa fa-hourglass-start"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">{$iconInfo[2]['name']}</span>
-              <span class="info-box-number">{$iconInfo[2]['number']}</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">{$iconInfo[3]['name']}</span>
-              <span class="info-box-number">{$iconInfo[3]['number']}</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
+          <!-- /.box -->
         </div>
         <!-- /.col -->
       </div>
       <!-- /.row -->
-
-      <!-- DONUT CHART -->
-      <div class="row">
-      <div class="col-md-6">
-      <div class="box box-danger">
-        <div class="box-header with-border">
-          <h3 class="box-title">文本分布图</h3>
-
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-          </div>
-        </div>
-        <div class="box-body chart-responsive">
-          <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
-        </div>
-        <!-- /.box-body -->
-      </div>
-      </div>
-      <!-- /.box -->
-
-      <!--charJs-->
-      <div class="col-md-6">
-      <div class="box box-success">
-        <div class="box-header with-border">
-          <h3 class="box-title">食品统计图</h3>
-
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-          </div>
-        </div>
-        <div class="box-body">
-          <div class="chart">
-            <canvas id="barChart" style="height:230px"></canvas>
-          </div>
-        </div>
-        <!-- /.box-body -->
-      </div>
-      </div>
-      </div>
-      <!-- /.box -->
-
-      <div class="row">
-        <div class="col-md-6">
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">食品数据</h3>
-              <a href="/index/label/search?type=1" class="button pull-right">查看详情</a>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table class="table table-bordered">
-                <tr>
-                  <th style="width: 10px">ID</th>
-                  <th>文件名</th>
-                  <th class="col-md-4">标注信息</th>
-                </tr>
-                {foreach $arrData['foodFile']['files'] as $food}
-                <tr>
-                  <td>{$food.id}</td>
-                  <td>{$food.name}</td>
-                  <td>
-                    {if condition="$food.need_classify eq 2"}
-                    <label class="label label-primary">标注完成</label>
-                    <a target="_blank" href="/index/label/onlyReadFile?name={$food.file}&type=1" class="label label-success">查看内容</a>
-                    {elseif condition="$food.i_need eq 1" /}
-                    <label class="label label-primary">已标注</label>
-                    <a target="_blank" href="/index/label/onlyReadFile?name={$food.file}&type=1" class="label label-success">查看内容</a>
-                    {else /}
-                    <label class="label label-danger">可标注</label>
-                    <a target="_blank" href="/index/label/readFile?name={$food.file}&type=1" class="label label-success">查看标注</a>
-                    {/if}
-                  </td>
-                </tr>
-                {/foreach}
-                <!--<tr>
-                  <td>1.</td>
-                  <td>Update software</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-red">55%</span></td>
-                </tr>
-                {/foreach}
-                <tr>
-                  <td>1.</td>
-                  <td>Update software</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-red">55%</span></td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>Clean database</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-yellow">70%</span></td>
-                </tr>
-                <tr>
-                  <td>3.</td>
-                  <td>Cron job running</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-light-blue">30%</span></td>
-                </tr>
-                <tr>
-                  <td>4.</td>
-                  <td>Fix and squish bugs</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-green">90%</span></td>
-                </tr>-->
-              </table>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer clearfix">
-              <ul class="pagination pagination-sm no-margin pull-right">
-                {if condition="$page.food eq 1"}
-                <li><a href="/index/label?pd={$page['food'] - 1}&pk={$page['milk']}&pt={$page['meat']}&pn={$page['wine']}">&laquo;</a></li>
-                <li class="active"><a>{$page['food']}</a></li>
-                <li><a href="/index/label?pd={$page['food'] + 1}&pk={$page['milk']}&pt={$page['meat']}&pn={$page['wine']}">{$page['food'] + 1}</a></li>
-                <li><a href="/index/label?pd={$page['food'] + 2}&pk={$page['milk']}&pt={$page['meat']}&pn={$page['wine']}">{$page['food'] + 2}</a></li>
-                <li><a href="/index/label?pd={$page['food'] + 1}&pk={$page['milk']}&pt={$page['meat']}&pn={$page['wine']}">&raquo;</a></li>
-                {else /}
-                <li><a href="/index/label?pd={$page['food'] - 1}&pk={$page['milk']}&pt={$page['meat']}&pn={$page['wine']}">&laquo;</a></li>
-                <li><a href="/index/label?pd={$page['food'] - 1}&pk={$page['milk']}&pt={$page['meat']}&pn={$page['wine']}">{$page['food'] - 1}</a></li>
-                <li class="active"><a>{$page['food']}</a></li>
-                <li><a href="/index/label?pd={$page['food'] + 1}&pk={$page['milk']}&pt={$page['meat']}&pn={$page['wine']}">{$page['food'] + 1}</a></li>
-                <li><a href="/index/label?pd={$page['food'] + 1}&pk={$page['milk']}&pt={$page['meat']}&pn={$page['wine']}">&raquo;</a></li>
-                {/if}
-              </ul>
-            </div>
-          </div>
-          <!-- /.box -->
-
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">酒类文本</h3>
-              <a href="/index/label/search?type=2" class="button pull-right">查看详情</a>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table class="table table-bordered">
-                <tr>
-                  <th style="width: 10px">ID</th>
-                  <th>文件名</th>
-                  <th class="col-md-4">标注信息</th>
-                </tr>
-                {foreach $arrData['wineFile']['files'] as $food}
-                <tr>
-                  <td>{$food.id}</td>
-                  <td>{$food.name}</td>
-                  <td>
-                    {if condition="$food.need_classify eq 2"}
-                    <label class="label label-primary">标注完成</label>
-                    <a target="_blank" href="/index/label/onlyReadFile?name={$food.file}&type=2" class="label label-success">查看内容</a>
-                    {elseif condition="$food.i_need eq 1"  /}
-                    <label class="label label-primary">已标注</label>
-                    <a target="_blank" href="/index/label/onlyReadFile?name={$food.file}&type=2" class="label label-success">查看内容</a>
-                    {else /}
-                    <label class="label label-danger">可标注</label>
-                    <a target="_blank" href="/index/label/readFile?name={$food.file}&type=2" class="label label-success">查看标注</a>
-                    {/if}
-                  </td>
-                </tr>
-                {/foreach}
-                <!--<tr>
-                  <td>1.</td>
-                  <td>Update software</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-red">55%</span></td>
-                </tr>
-                {/foreach}
-                <tr>
-                  <td>1.</td>
-                  <td>Update software</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-red">55%</span></td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>Clean database</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-yellow">70%</span></td>
-                </tr>
-                <tr>
-                  <td>3.</td>
-                  <td>Cron job running</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-light-blue">30%</span></td>
-                </tr>
-                <tr>
-                  <td>4.</td>
-                  <td>Fix and squish bugs</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-green">90%</span></td>
-                </tr>-->
-              </table>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer clearfix">
-              <ul class="pagination pagination-sm no-margin pull-right">
-                {if condition="$page.wine eq 1"}
-                <li><a href="/index/label?pd={$page['food']}&pk={$page['milk']}&pt={$page['meat']}&pn={$page['wine'] - 1}">&laquo;</a></li>
-                <li class="active"><a>{$page['wine']}</a></li>
-                <li><a href="/index/label?pd={$page['food']}&pk={$page['milk']}&pt={$page['meat']}&pn={$page['wine'] + 1}">{$page['wine'] + 1}</a></li>
-                <li><a href="/index/label?pd={$page['food']}&pk={$page['milk']}&pt={$page['meat']}&pn={$page['wine'] + 2}">{$page['wine'] + 2}</a></li>
-                <li><a href="/index/label?pd={$page['food']}&pk={$page['milk']}&pt={$page['meat']}&pn={$page['wine'] + 1}">&raquo;</a></li>
-                {else /}
-                <li><a href="/index/label?pd={$page['food']}&pk={$page['milk']}&pt={$page['meat']}&pn={$page['wine'] - 1}">&laquo;</a></li>
-                <li><a href="/index/label?pd={$page['food']}&pk={$page['milk']}&pt={$page['meat']}&pn={$page['wine'] - 1}">{$page['wine'] - 1}</a></li>
-                <li class="active"><a>{$page['wine']}</a></li>
-                <li><a href="/index/label?pd={$page['food']}&pk={$page['milk']}&pt={$page['meat']}&pn={$page['wine'] + 1}">{$page['wine'] + 1}</a></li>
-                <li><a href="/index/label?pd={$page['food']}&pk={$page['milk']}&pt={$page['meat']}&pn={$page['wine'] + 1}">&raquo;</a></li>
-                {/if}
-              </ul>
-            </div>
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-6">
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">肉类文本</h3>
-              <a href="/index/label/search?type=4" class="button pull-right">查看详情</a>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table class="table table-bordered">
-                <tr>
-                  <th style="width: 10px">ID</th>
-                  <th>文件名</th>
-                  <th class="col-md-4">标注信息</th>
-                </tr>
-                {foreach $arrData['meatFile']['files'] as $food}
-                <tr>
-                  <td>{$food.id}</td>
-                  <td>{$food.name}</td>
-                  <td>
-                    {if condition="$food.need_classify eq 2"}
-                    <label class="label label-primary">标注完成</label>
-                    <a target="_blank" href="/index/label/onlyReadFile?name={$food.file}&type=3" class="label label-success">查看内容</a>
-                    {elseif condition="$food.i_need eq 1"  /}
-                    <label class="label label-primary">已标注</label>
-                    <a target="_blank" href="/index/label/onlyReadFile?name={$food.file}&type=3" class="label label-success">查看内容</a>
-                    {else /}
-                    <label class="label label-danger">可标注</label>
-                    <a target="_blank" href="/index/label/readFile?name={$food.file}&type=3" class="label label-success">查看标注</a>
-                    {/if}
-                  </td>
-                </tr>
-                {/foreach}
-                <!--<tr>
-                  <td>1.</td>
-                  <td>Update software</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-red">55%</span></td>
-                </tr>
-                {/foreach}
-                <tr>
-                  <td>1.</td>
-                  <td>Update software</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-red">55%</span></td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>Clean database</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-yellow">70%</span></td>
-                </tr>
-                <tr>
-                  <td>3.</td>
-                  <td>Cron job running</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-light-blue">30%</span></td>
-                </tr>
-                <tr>
-                  <td>4.</td>
-                  <td>Fix and squish bugs</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-green">90%</span></td>
-                </tr>-->
-              </table>
-            </div>
-            <!-- /.box-body --><div class="box-footer clearfix">
-            <ul class="pagination pagination-sm no-margin pull-right">
-              {if condition="$page.meat eq 1"}
-              <li><a href="/index/label?pd={$page['food']}&pk={$page['milk']}&pt={$page['meat'] - 1}&pn={$page['wine']}">&laquo;</a></li>
-              <li class="active"><a>{$page['meat']}</a></li>
-              <li><a href="/index/label?pd={$page['food']}&pk={$page['milk']}&pt={$page['meat'] + 1}&pn={$page['wine']}">{$page['meat'] + 1}</a></li>
-              <li><a href="/index/label?pd={$page['food']}&pk={$page['milk']}&pt={$page['meat'] + 2}&pn={$page['wine']}">{$page['meat'] + 2}</a></li>
-              <li><a href="/index/label?pd={$page['food']}&pk={$page['milk']}&pt={$page['meat'] + 1}&pn={$page['wine']}">&raquo;</a></li>
-              {else /}
-              <li><a href="/index/label?pd={$page['food']}&pk={$page['milk']}&pt={$page['meat'] - 1}&pn={$page['wine']}">&laquo;</a></li>
-              <li><a href="/index/label?pd={$page['food']}&pk={$page['milk']}&pt={$page['meat'] - 1}&pn={$page['wine']}">{$page['meat'] - 1}</a></li>
-              <li class="active"><a>{$page['meat']}</a></li>
-              <li><a href="/index/label?pd={$page['food']}&pk={$page['milk']}&pt={$page['meat'] + 1}&pn={$page['wine']}">{$page['meat'] + 1}</a></li>
-              <li><a href="/index/label?pd={$page['food']}&pk={$page['milk']}&pt={$page['meat'] + 1}&pn={$page['wine']}">&raquo;</a></li>
-              {/if}
-            </ul>
-          </div>
-          </div>
-          <!-- /.box -->
-
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">奶类文本</h3>
-              <a href="/index/label/search?type=5" class="button pull-right">查看详情</a>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table class="table table-bordered">
-                <tr>
-                  <th style="width: 10px">ID</th>
-                  <th>文件名</th>
-                  <th class="col-md-4">标注信息</th>
-                </tr>
-                {foreach $arrData['milkFile']['files'] as $food}
-                <tr>
-                  <td>{$food.id}</td>
-                  <td>{$food.name}</td>
-                  <td>
-                    {if condition="$food.need_classify eq 2"}
-                    <label class="label label-primary">标注完成</label>
-                    <a target="_blank" href="/index/label/onlyReadFile?name={$food.file}&type=4" class="label label-success">查看内容</a>
-                    {elseif condition="$food.i_need eq 1" /}
-                    <label class="label label-primary">已标注</label>
-                    <a target="_blank" href="/index/label/onlyReadFile?name={$food.file}&type=4" class="label label-success">查看内容</a>
-                    {else /}
-                    <label class="label label-danger">可标注</label>
-                    <a target="_blank" href="/index/label/readFile?name={$food.file}&type=4" class="label label-success">查看标注</a>
-                    {/if}
-                  </td>
-                </tr>
-                {/foreach}
-                <!--<tr>
-                  <td>1.</td>
-                  <td>Update software</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-red">55%</span></td>
-                </tr>
-                {/foreach}
-                <tr>
-                  <td>1.</td>
-                  <td>Update software</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-red">55%</span></td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>Clean database</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-yellow">70%</span></td>
-                </tr>
-                <tr>
-                  <td>3.</td>
-                  <td>Cron job running</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-light-blue">30%</span></td>
-                </tr>
-                <tr>
-                  <td>4.</td>
-                  <td>Fix and squish bugs</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-green">90%</span></td>
-                </tr>-->
-              </table>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer clearfix">
-              <ul class="pagination pagination-sm no-margin pull-right">
-                {if condition="$page.milk eq 1"}
-                <li><a href="/index/label?pd={$page['food']}&pk={$page['milk'] - 1}&pt={$page['meat']}&pn={$page['wine']}">&laquo;</a></li>
-                <li class="active"><a>{$page['milk']}</a></li>
-                <li><a href="/index/label?pd={$page['food']}&pk={$page['milk'] + 1}&pt={$page['meat']}&pn={$page['wine']}">{$page['food'] + 1}</a></li>
-                <li><a href="/index/label?pd={$page['food']}&pk={$page['milk'] + 2}&pt={$page['meat']}&pn={$page['wine']}">{$page['milk'] + 2}</a></li>
-                <li><a href="/index/label?pd={$page['food']}&pk={$page['milk'] + 1}&pt={$page['meat']}&pn={$page['wine']}">&raquo;</a></li>
-                {else /}
-                <li><a href="/index/label?pd={$page['food']}&pk={$page['milk'] - 1}&pt={$page['meat']}&pn={$page['wine']}">&laquo;</a></li>
-                <li><a href="/index/label?pd={$page['food']}&pk={$page['milk'] - 1}&pt={$page['meat']}&pn={$page['wine']}">{$page['milk'] - 1}</a></li>
-                <li class="active"><a>{$page['milk']}</a></li>
-                <li><a href="/index/label?pd={$page['food']}&pk={$page['milk'] + 1}&pt={$page['meat']}&pn={$page['wine']}">{$page['milk'] + 1}</a></li>
-                <li><a href="/index/label?pd={$page['food']}&pk={$page['milk'] + 1}&pt={$page['meat']}&pn={$page['wine']}">&raquo;</a></li>
-                {/if}
-              </ul>
-            </div>
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-
 
     </section>
     <!-- /.content -->
@@ -1258,110 +1172,24 @@
 <!--{js href="/static/adminlte/plugins/slimScroll/jquery.slimscroll.min.js" /}-->
 {js href="/static/adminlte/plugins/chartjs/Chart.min.js" /}
 <!--{js href="/static/adminlte/dist/js/pages/dashboard2.js" /}-->
+<!-- DataTables -->
+{js href="/static/adminlte/plugins/datatables/jquery.dataTables.min.js" /}
+{js href="/static/adminlte/plugins/datatables/dataTables.bootstrap.min.js" /}
 {js href="/static/adminlte/dist/js/demo.js" /}
 {js href="/static/adminlte/bootstrap/js/raphael-min.js" /}
 {js href="/static/adminlte/plugins/morris/morris.min.js" /}
 
-<!--CharJS-->
 <script>
     $(function () {
-      /* ChartJS
-       * -------
-       * Here we will create a few charts using ChartJS
-       */
-
-        var areaChartData = {
-            labels: ["文本图表统计"],
-            datasets: [
-                {
-                    label: "酒类",
-                    fillColor: "#f56954",
-                    strokeColor: "#f56954",
-                    pointColor: "#f56954",
-                    pointStrokeColor: "#c1c7d1",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: [{$arrData['wineFile']['count']}]
-                },
-                {
-                    label: "肉类",
-                    fillColor: "rgba(60,141,188,0.9)",
-                    strokeColor: "rgba(60,141,188,0.8)",
-                    pointColor: "#3b8bba",
-                    pointStrokeColor: "rgba(60,141,188,1)",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(60,141,188,1)",
-                    data: [{$arrData['meatFile']['count']}]
-                },
-                {
-                    label: "奶类",
-                    fillColor: "rgba(60,141,188,0.9)",
-                    strokeColor: "rgba(60,141,188,0.8)",
-                    pointColor: "#3b8bba",
-                    pointStrokeColor: "rgba(60,141,188,1)",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(60,141,188,1)",
-                    data: [{$arrData['milkFile']['count']}]
-                }
-            ]
-        };
-
-        //-------------
-        //- BAR CHART -
-        //-------------
-        var barChartCanvas = $("#barChart").get(0).getContext("2d");
-        var barChart = new Chart(barChartCanvas);
-        var barChartData = areaChartData;
-        barChartData.datasets[1].fillColor = "#00a65a";
-        barChartData.datasets[1].strokeColor = "#00a65a";
-        barChartData.datasets[1].pointColor = "#00a65a";
-        var barChartOptions = {
-            //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-            scaleBeginAtZero: true,
-            //Boolean - Whether grid lines are shown across the chart
-            scaleShowGridLines: true,
-            //String - Colour of the grid lines
-            scaleGridLineColor: "rgba(0,0,0,.05)",
-            //Number - Width of the grid lines
-            scaleGridLineWidth: 1,
-            //Boolean - Whether to show horizontal lines (except X axis)
-            scaleShowHorizontalLines: true,
-            //Boolean - Whether to show vertical lines (except Y axis)
-            scaleShowVerticalLines: true,
-            //Boolean - If there is a stroke on each bar
-            barShowStroke: true,
-            //Number - Pixel width of the bar stroke
-            barStrokeWidth: 2,
-            //Number - Spacing between each of the X value sets
-            barValueSpacing: 5,
-            //Number - Spacing between data sets within X values
-            barDatasetSpacing: 1,
-            //String - A legend template
-            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
-            //Boolean - whether to make the chart responsive
-            responsive: true,
-            maintainAspectRatio: true
-        };
-
-        barChartOptions.datasetFill = false;
-        barChart.Bar(barChartData, barChartOptions);
-
-      /*DONUT CHART
-       * -------
-       * Here we will create a few charts using ChartJS
-       */
-        var donut = new Morris.Donut({
-            element: 'sales-chart',
-            resize: true,
-            colors: ["#3c8dbc", "#f56954", "#00a65a"],
-            data: [
-                {label: "肉类文本", value: {$arrData['meatFile']['count']}},
-                {label: "奶类文本", value: {$arrData['milkFile']['count']}},
-                {label: "酒类文本", value: {$arrData['wineFile']['count']}}
-            ],
-            hideHover: 'auto'
+        $("#example1").DataTable();
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
         });
-
     });
 </script>
 

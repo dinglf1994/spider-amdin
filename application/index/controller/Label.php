@@ -129,8 +129,31 @@ class Label extends Controller
             }
             $fileData['milkFile']['count'] = $this->_objClassify->where($where)->count();
 
+            // 图标数据
+            $data = [
+                [
+                    'name' => '标记完成',
+                    'number' => 0,
+                ],
+                [
+                    'name' => '标记中',
+                    'number' => 0,
+                ],
+                [
+                    'name' => '未标记',
+                    'number' => 0,
+                ],
+                [
+                    'name' => '用户数量',
+                    'number' => 0,
+                ],
+            ];
 
-
+            $dataResult = $this->_objClassify->getIconData();
+            foreach ($data as $key => &$info) {
+                $info['number'] = $dataResult[$key];
+            }
+            $this->assign('iconInfo', $data);
             $this->assign('arrData', $fileData);
             $this->assign('page', $page);
         }
@@ -151,6 +174,16 @@ class Label extends Controller
             $this->assign('labelArr', $labelArr);
         }
         return $this->fetch();
+    }
+
+    // 搜索详情页
+    public function search()
+    {
+        if ($this->request->isGet()) {
+            return $this->fetch();
+        }else {
+            return $this->fetch();
+        }
     }
 
     // 用户标记界面提交反馈

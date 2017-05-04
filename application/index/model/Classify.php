@@ -70,4 +70,20 @@ class Classify extends Model
         }
         $userClassify->saveAll($data);
     }
+
+    // 获取首页图标数据
+    public function getIconData()
+    {
+        $info = [];
+        $classify = new Classify();
+        $user = model('User');
+        $info[] = $classify->where('need_classify = 2')->count();
+        $info[] = $classify->where('belong_food != 0 or belong_wine != 0 or belong_meat != 0 or belong_milk != 0')->count();
+        $info[] = $classify->where('belong_food = 0 and belong_wine = 0 and belong_meat = 0 and belong_milk = 0')->count();
+        $info[] = $user->count();
+        foreach ($info as $key => $value) {
+            $info[$key] = empty($value) ? 0 : $value;
+        }
+        return $info;
+    }
 }
