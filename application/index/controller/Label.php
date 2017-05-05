@@ -211,17 +211,31 @@ class Label extends Controller
         $this->assign('iconInfo', $data);
         return $this->fetch();
     }
+
     // 搜索详情页
     public function search()
     {
         if (Session::get('rank') < 2) {
             $this->error('访问权限不够，返回中。。。');
         }else {
-            if ($this->request->isGet()) {
-                return $this->fetch();
-            } else {
-                return $this->fetch();
+            $where = '';
+            $get = $this->request->get();
+            if (!empty($get['type'])) {
+                $where .= "type = {$get['type']}";
             }
+            if (!empty($get['search_word'])) {
+                $where .= " AND title like %{$get['search_word']}% or content like %{$get['search_word']}%";
+            }
+            if (empty($where)) {
+                $where .= '1=1';
+            }else {
+                $where .= ' AND 1=1';
+            }
+            $result = $this->_objClassify->pageSelect($where);
+            $this->assign('list', $result['list']);
+            $this->assign('page', $result['page']);
+            return $this->fetch();
+
         }
     }
 
