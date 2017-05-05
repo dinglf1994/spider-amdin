@@ -202,7 +202,7 @@ class Label extends Controller
             $where = [];
             $belongWhat = [];
             for ($i = 1; $i <= 5; $i++) {
-                $data[] = ['user_id' => intval($post["number{$i}"]), 'classify_id' => $post["text_name{$i}"], 'suggest' => $post["suggest{$i}"]];
+                $data[] = ['user_id' => intval($post["number{$i}"]), 'classify_id' => $post["text_name{$i}"], 'suggest' => $post["suggest{$i}"], 'type' => intval($post["type{$i}"])];
                 $where[] = ['text_name' => $post["text_name{$i}"]];
                 $belongWhat[] = $belong[intval($post["type{$i}"])];
             }
