@@ -271,7 +271,7 @@ class Label extends Controller
             5 => 'belong_others'
         ];
         $post = $this->request->post();
-        $data = ['user_id' => intval($post['number']), 'classify_id' => $post['text_name'], 'suggest' => $post['suggest']];
+        $data = ['user_id' => intval($post['number']), 'classify_id' => $post['text_name'], 'suggest' => $post['suggest'], 'type' => intval($post['type'])];
         $where = ['text_name' => $post['text_name']];
         $belongWhat = intval($post['type']);
         $this->_objClassify->feedback($where, $data, $belong[$belongWhat]);
