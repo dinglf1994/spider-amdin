@@ -214,10 +214,14 @@ class Label extends Controller
     // 搜索详情页
     public function search()
     {
-        if ($this->request->isGet()) {
-            return $this->fetch();
+        if (Session::get('rank') < 2) {
+            $this->error('访问权限不够，返回中。。。');
         }else {
-            return $this->fetch();
+            if ($this->request->isGet()) {
+                return $this->fetch();
+            } else {
+                return $this->fetch();
+            }
         }
     }
 
