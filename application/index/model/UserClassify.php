@@ -27,4 +27,16 @@ class UserClassify extends Model
             return false;
         }
     }
+
+    // 获取首页图标数据
+    public function getIconData($where)
+    {
+        $info = [];
+        $userClassify = new UserClassify();
+        $info[] = $userClassify->where($where)->count();
+        foreach ($info as $key => $value) {
+            $info[$key] = empty($value) ? 0 : $value;
+        }
+        return $info;
+    }
 }

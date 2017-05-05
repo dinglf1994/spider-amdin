@@ -176,6 +176,41 @@ class Label extends Controller
         return $this->fetch();
     }
 
+    // 标记统计界面
+    public function userInfo()
+    {
+        // 图标数据
+        $data = [
+            [
+                'name' => '我标记的数量',
+                'number' => 0,
+            ],
+            [
+                'name' => '所有标记中的数量',
+                'number' => 0,
+            ],
+            [
+                'name' => '所有未标记的数量',
+                'number' => 0,
+            ],
+            [
+                'name' => '继续标记',
+            ],
+        ];
+
+        $dataResult = $this->_objClassify->getIconData();
+        $number = Session::get('userNumber');
+        $where = [
+            'user_id' => $number,
+        ];
+        $dataResultUser = $this->_objUserClassify->getIconData($where);
+        foreach ($data as $key => &$info) {
+            $info['number'] = $dataResult[$key];
+        }
+        $data[0]['number'] = $dataResultUser[0];
+        $this->assign('iconInfo', $data);
+        return $this->fetch();
+    }
     // 搜索详情页
     public function search()
     {
