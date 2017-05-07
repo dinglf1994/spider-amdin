@@ -218,20 +218,43 @@ class Label extends Controller
         if (Session::get('rank') < 2) {
             $this->error('访问权限不够，返回中。。。');
         }else {
-            $where = '';
+            $query = [];
+            $where = '1 = 1';
             $get = $this->request->get();
             if (!empty($get['type'])) {
-                $where .= "type = {$get['type']}";
+                $where .= " AND type = {$get['type']}";
+                $query['type'] = "{$get['type']}";
+            }
+            if (!empty($get['text_url'])) {
+                $where .= " AND text_url = '{$get['text_url']}'";
+                $query['text_url'] = "{$get['text_url']}";
             }
             if (!empty($get['search_word'])) {
-                $where .= " AND title like %{$get['search_word']}% or content like %{$get['search_word']}%";
+//                $where .= " AND title like '%{$get['search_word']}%' or content like '%{$get['search_word']}%'";
+                $where .= " AND title like '%{$get['search_word']}%'";
+                $query['search_word'] = "{$get['search_word']}";
             }
-            if (empty($where)) {
-                $where .= '1=1';
+            $labelInfo = empty($get['label_info'])?'':intval($get['label_info']);
+            if (!empty($get['label_info'])) {
+                if ($labelInfo == 3) {
+                    $where .= " AND belong_food != 0 OR belong_wine != 0 OR belong_meat != 0 OR belong_milk != 0 OR belong_others != 0";
+                }else {
+                    $where .= " AND need_classify = {$labelInfo}";
+                }
+                $query['label_info'] = "{$labelInfo}";
+            }
+//            var_dump($where);exit;
+            $result = $this->_objClassify->pageSelect($where, '*', $query);
+            if (isset($get['search_word'])) {
+                $this->assign('word', $get['search_word']);
             }else {
-                $where .= ' AND 1=1';
+                $this->assign('word', '');
             }
-            $result = $this->_objClassify->pageSelect($where);
+            if (!empty($get['label_info']) && $get['label_info'] == 3) {
+                foreach ($result['list'] as &$value) {
+                    $value['need_classify'] = 3;
+                }
+            }
             $this->assign('list', $result['list']);
             $this->assign('page', $result['page']);
             return $this->fetch();

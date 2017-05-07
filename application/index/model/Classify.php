@@ -88,12 +88,14 @@ class Classify extends Model
     }
 
     // 分页查询数据
-    public function pageSelect($where, $field = '*')
+    public function pageSelect($where, $field = '*', $query = [])
     {
         $classify = new Classify();
-        $list = $classify->where($where)->field($field)->order('id DESC')->paginate(15);
+        $list = $classify->where($where)->field($field)->order('id DESC')->paginate(15, false, array(
+            'query' => $query
+        ));
         $page = $list->render();
-
+//        var_dump($page);exit;
         return ['list' => $list, 'page' => $page];
     }
 }

@@ -230,7 +230,7 @@
                 <ul class="treeview-menu">
                   <li class="active"><a href="/index/label"><i class="fa fa-circle-o"></i>数据展示页</a></li>
                   <li><a href="/index/label/userinfo"><i class="fa fa-circle-o"></i> 我的标注信息</a></li>
-                  <li><a href="#"><i class="fa fa-circle-o"></i> 等待标注的文本-等待开放</a></li>
+                  <!--<li><a href="#"><i class="fa fa-circle-o"></i> 等待标注的文本-等待开放</a></li>-->
                 </ul>
               </li>
               <li class="treeview">
@@ -256,19 +256,16 @@
               <li class="treeview">
                 <a href="#">
                   <i class="fa fa-pie-chart"></i>
-                  <span>搜索功能开发中</span>
+                  <span>搜索功能</span>
                   <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="../charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-                  <li><a href="../charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-                  <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-                  <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
-                </ul>
+                  <li><a href="/index/label/search"><i class="fa fa-circle-o"></i>进入搜索</a></li>
+                  </ul>
               </li>
-              <li class="treeview">
+             <!-- <li class="treeview">
                 <a href="#">
                   <i class="fa fa-laptop"></i>
                   <span>UI Elements</span>
@@ -309,7 +306,7 @@
                   <li><a href="../tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
                   <li><a href="../tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
                 </ul>
-              </li>
+              </li>-->
             </ul>
       <!--<ul class="sidebar-menu">
         <li class="header">主菜单</li>
@@ -522,10 +519,8 @@
                   <label for="url">来源</label>
                   <select name="text_url" id="url" class="form-control select2" style="width: 100%;">
                     <option value="" selected="selected">请选择</option>
-                    <option value="2">食品网1</option>
-                    <option value="3">食品网2</option>
-                    <option value="4">食品网3</option>
-                    <option value="1">食品网4</option>
+                    <option value="search.tech-food.com">中国食品搜索</option>
+                    <option value="www.cnfood.com">中国食品网</option>
                   </select>
                 </div>
                 <div class="form-group col-md-4">
@@ -540,7 +535,7 @@
                   </select>
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="exampleInputPassword2">搜索</label>
+                  <label for="exampleInputPassword2">标题中搜索</label>
                   <input type="text" name="search_word" class="form-control" id="exampleInputPassword2" placeholder="">
                 </div>
                 <div class="form-group col-md-4">
@@ -549,7 +544,7 @@
                     <option value="" selected="selected">请选择</option>
                     <option value="2">完成标注</option>
                     <option value="3">标注中</option>
-                    <option value="4">未标注</option>
+                    <option value="1">未标注</option>
                   </select>
                 </div>
               </div>
@@ -569,14 +564,14 @@
         <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">文本信息</h3>
+              <h3 class="box-title">筛选结果</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table class="table table-bordered">
                 <tr>
                   <th style="width: 10px">ID</th>
-                  <th>文件名</th>
+                  <!--<th>文件名</th>-->
                   <th>来源URL</th>
                   <th>标题</th>
                   <th>获取时间</th>
@@ -587,21 +582,40 @@
                   <th>食品-标注数量</th>
                   <th>其他-标注数量</th>
                   <th>是否需要标注</th>
+                  <th>操作</th>
                 </tr>
                 {foreach $list as $l}
                 <tr>
                   <td>{$l.id}</td>
-                  <td>{$l.text_name}</td>
-                  <td>{$l.text_url}</td>
+                  <!--<td>{$l.text_name}</td>-->
+                  {switch name="$l.text_url"}
+                  {case value="search.tech-food.com"}<td><span class="label label-primary">中国食品搜索</span></td>{/case}
+                  {case value="www.cnfood.com"}<td><span class="label label-primary">中国食品网</span></td>{/case}
+                  {/switch}
+                  {if condition="$word neq ''"}
+                  <td>{$l.title|str_replace="$word","<font color='red'>$word</font>",###}</td>
+                  {else /}
                   <td>{$l.title}</td>
+                  {/if}
                   <td>{$l.push_time}</td>
-                  <td>{$l.type}</td>
-                  <td>{$l.belong_milk}</td>
-                  <td>{$l.belong_wine}</td>
-                  <td>{$l.belong_meat}</td>
-                  <td>{$l.belong_food}</td>
-                  <td>{$l.belong_others}</td>
-                  <td>{$l.need_classify}</td>
+                  {switch name="$l.type"}
+                    {case value="1"}<td><span class="label label-primary">食品</span></td>{/case}
+                    {case value="2"}<td><span class="label label-primary">酒类</span></td>{/case}
+                    {case value="3"}<td><span class="label label-primary">肉类</span></td>{/case}
+                    {case value="4"}<td><span class="label label-primary">奶类</span></td>{/case}
+                    {case value="5"}<td><span class="label label-primary">其他</span></td>{/case}
+                  {/switch}
+                  <td><span class="label label-primary">{$l.belong_milk}</span></td>
+                  <td><span class="label label-success">{$l.belong_wine}</span></td>
+                  <td><span class="label label-success">{$l.belong_meat}</span></td>
+                  <td><span class="label label-success">{$l.belong_food}</span></td>
+                  <td><span class="label label-success">{$l.belong_others}</span></td>
+                  {switch name="$l.need_classify"}
+                  {case value="1"}<td><span class="label label-danger">未标注</span></td>{/case}
+                  {case value="2"}<td><span class="label label-success">已完成标注</span></td>{/case}
+                  {case value="3"}<td><span class="label label-info">标注中</span></td>{/case}
+                  {/switch}
+                  <td><a target="_blank" class="label label-primary" href="/index/label/onlyReadFile?name={$l.text_name}&type={$l.type}">查看详情</a></td>
                 </tr>
                 {/foreach}
               </table>
