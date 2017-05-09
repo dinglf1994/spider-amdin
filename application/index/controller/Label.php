@@ -200,10 +200,42 @@ class Label extends Controller
 
         $dataResult = $this->_objClassify->getIconData();
         $number = Session::get('userNumber');
-        $where = [
+
+        $query = [];
+        $where = "uc.user_id = {$number}";
+        $get = $this->request->get();
+        if (!empty($get['type'])) {
+            $where .= " AND c.type = {$get['type']}";
+            $query['type'] = "{$get['type']}";
+        }
+        if (!empty($get['text_url'])) {
+            $where .= " AND c.text_url = '{$get['text_url']}'";
+            $query['text_url'] = "{$get['text_url']}";
+        }
+        if (!empty($get['search_word'])) {
+//                $where .= " AND title like '%{$get['search_word']}%' or content like '%{$get['search_word']}%'";
+            $where .= " AND c.title like '%{$get['search_word']}%'";
+            $query['search_word'] = "{$get['search_word']}";
+        }
+        $result = $this->_objUserClassify->pageSelect($where, '*', $query, $number);
+        if (isset($get['search_word'])) {
+            $this->assign('word', $get['search_word']);
+        }else {
+            $this->assign('word', '');
+        }
+        if (!empty($get['label_info']) && $get['label_info'] == 3) {
+            foreach ($result['list'] as &$value) {
+                $value['need_classify'] = 3;
+            }
+        }
+        $this->assign('list', $result['list']);
+        $this->assign('page', $result['page']);
+
+
+        $where2 = [
             'user_id' => $number,
         ];
-        $dataResultUser = $this->_objUserClassify->getIconData($where);
+        $dataResultUser = $this->_objUserClassify->getIconData($where2);
         foreach ($data as $key => &$info) {
             $info['number'] = $dataResult[$key];
         }
