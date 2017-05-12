@@ -15,6 +15,7 @@ class Index extends Controller
     const WINE_TYPE = 2;
     const MEAT_TYPE = 3;
     const MILK_TYPE = 4;
+    const OTHERS_TYPE = 5;
 
     const NORMAL_USER = 1;
     const ADMIN_USER = 2;
@@ -225,6 +226,65 @@ class Index extends Controller
         print_r($result);
     }
 
+    // 导出标注结果
+    public function exportResult()
+    {
+        $labelArr = [
+            'belong_food' => self::FOOD_TYPE,
+            'belong_meat' => self::MEAT_TYPE,
+            'belong_milk' => self::MILK_TYPE,
+            'belong_wine' => self::WINE_TYPE,
+            'belong_others' => self::OTHERS_TYPE,
+        ];
+        $data = $this->_objClassify->getLabelResult();
+        foreach ($data as $key => $item) {
+            $arr['belong_food'] = $item['belong_food'];
+            $arr['belong_meat'] = $item['belong_meat'];
+            $arr['belong_milk'] = $item['belong_milk'];
+            $arr['belong_wine'] = $item['belong_wine'];
+            $arr['belong_others'] = $item['belong_others'];
+            $maxLabel = $this->_getMaxLabel($arr);
+            switch ($labelArr[$maxLabel])
+            {
+                case self::FOOD_TYPE :
+                    $str = self::FOOD_TYPE. ",{$item['text_name']}".PHP_EOL;
+                    file_put_contents('label_result.txt', $str, FILE_APPEND);
+                    break;
+                case self::MILK_TYPE :
+                    $str = self::MILK_TYPE. ",{$item['text_name']}".PHP_EOL;
+                    file_put_contents('label_result.txt', $str, FILE_APPEND);
+                    break;
+                case self::WINE_TYPE :
+                    $str = self::WINE_TYPE. ",{$item['text_name']}".PHP_EOL;
+                    file_put_contents('label_result.txt', $str, FILE_APPEND);
+                    break;
+                case self::MEAT_TYPE :
+                    $str = self::MEAT_TYPE. ",{$item['text_name']}".PHP_EOL;
+                    file_put_contents('label_result.txt', $str, FILE_APPEND);
+                    break;
+                case self::OTHERS_TYPE :
+                    $str = self::OTHERS_TYPE. ",{$item['text_name']}".PHP_EOL;
+                    file_put_contents('label_result.txt', $str, FILE_APPEND);
+                    break;
+            }
+        }
+
+        return "分类结果已经保存";
+    }
+    private function _getMaxLabel($arr)
+    {
+        $pos = array_search(max($arr), $arr);
+        return $pos;
+    }
+    // 整理标注结果
+    public function updateLabel()
+    {
+        if ($this->_objClassify->updateLabel()) {
+            return "OK";
+        }else {
+            return "FALSE";
+        }
+    }
     // read text and write mysql
     public function readTextWriteSql()
     {

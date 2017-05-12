@@ -98,4 +98,20 @@ class Classify extends Model
 //        var_dump($page);exit;
         return ['list' => $list, 'page' => $page];
     }
+
+    // 整理分类结果
+    public function updateLabel()
+    {
+        $sql = 'UPDATE cs_classify SET need_classify = 2 WHERE belong_food >= 2 OR belong_meat >= 2 OR belong_wine >= 2 OR belong_milk >= 2 OR belong_others >= 2';
+        $classify = new Classify();
+        $classify->execute($sql);
+    }
+    // 获取分类结果
+    public function getLabelResult()
+    {
+        $where = "need_classify = 2";
+        $classify = new Classify();
+        $data = $classify->where($where)->select();
+        return $data;
+    }
 }
