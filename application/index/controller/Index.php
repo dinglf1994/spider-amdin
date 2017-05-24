@@ -1,6 +1,7 @@
 <?php
 namespace app\index\controller;
 
+use app\index\model\ArticleSearch;
 use app\index\model\Classify;
 use app\index\model\User;
 use think\Controller;
@@ -11,6 +12,7 @@ class Index extends Controller
 {
     private $_objUser;
     private $_objClassify;
+    private $_objArticleSearch;
     const FOOD_TYPE = 1;
     const WINE_TYPE = 2;
     const MEAT_TYPE = 3;
@@ -19,11 +21,12 @@ class Index extends Controller
 
     const NORMAL_USER = 1;
     const ADMIN_USER = 2;
-    public function __construct(Request $request, User $user, Classify $classify)
+    public function __construct(Request $request, User $user, Classify $classify, ArticleSearch $articleSearch)
     {
         parent::__construct($request);
         $this->_objUser = $user;
         $this->_objClassify = $classify;
+        $this->_objArticleSearch = $articleSearch;
     }
 
     public function index()
@@ -168,61 +171,241 @@ class Index extends Controller
     public function delFile()
     {
         exit;
-        $dir = CLASSIFICATION_PATH. 'tichu/';
+        $dir = "D:\\Ml\\search.tech-food.com\\5\\";
         $file = scandir($dir);
 //        print_r($file);
         unset($file[0]); unset($file[1]);
         foreach ($file as $value) {
             $data = file_get_contents($dir. $value);
             if (strlen($data) > 100) {
-                file_put_contents(CLASSIFICATION_PATH. 'canuse/'. $value, $data);
+                file_put_contents("D:\\Ml\\search.tech-food.com\\55\\". $value, $data);
             }
         }
         return 'OK';
     }
 
-    // 统计分类准确率
-    public function classificationResult()
+    // 统计分类准确率2
+    public function classificationResultB()
     {
-        $dirN = 'D:\\Ml\\svm\\ClassificationForThreeData\\readyClassify\\酒类\\';
+        $dir1 = 'D:\\Ml\\svm\\ClassificationThreeNew\\testData\\ready\\';
+        $dir2 = 'D:\\Ml\\svm\\ClassificationThreeNew\\testData\\result\\';
+        $dirN = $dir1. '酒类\\';
         $dirN = iconv("UTF-8","gb2312",$dirN);
         $fileN = scandir($dirN);
         unset($fileN[0], $fileN[1]);
-        $dirNR = 'D:\\Ml\\svm\\ClassificationForThreeData\\ClassificationFile\\酒类\\';
+        $dirNR = $dir2. '酒类\\';
         $dirNR = iconv("UTF-8","gb2312",$dirNR);
         $fileNR = scandir($dirNR);
         unset($fileNR[0], $fileNR[1]);
         $result['酒类准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
 
-        $dirN = 'D:\\Ml\\svm\\ClassificationForThreeData\\readyClassify\\奶类\\';
+        $dirN = $dir1. '奶类\\';
         $dirN = iconv("UTF-8","gb2312",$dirN);
         $fileN = scandir($dirN);
         unset($fileN[0], $fileN[1]);
-        $dirNR = 'D:\\Ml\\svm\\ClassificationForThreeData\\ClassificationFile\\奶类\\';
+        $dirNR = $dir2. '奶类\\';
         $dirNR = iconv("UTF-8","gb2312",$dirNR);
         $fileNR = scandir($dirNR);
         unset($fileNR[0], $fileNR[1]);
         $result['奶类准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
 
-        $dirN = 'D:\\Ml\\svm\\ClassificationForThreeData\\readyClassify\\肉类\\';
+        $dirN = $dir1. '肉类\\';
         $dirN = iconv("UTF-8","gb2312",$dirN);
         $fileN = scandir($dirN);
         unset($fileN[0], $fileN[1]);
-        $dirNR = 'D:\\Ml\\svm\\ClassificationForThreeData\\ClassificationFile\\肉类\\';
+        $dirNR = $dir2. '肉类\\';
         $dirNR = iconv("UTF-8","gb2312",$dirNR);
         $fileNR = scandir($dirNR);
         unset($fileNR[0], $fileNR[1]);
         $result['肉类准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
 
-        $dirN = 'D:\\Ml\\svm\\ClassificationForThreeData\\readyClassify\\食品\\';
+        print_r($result);
+    }
+    // 统计分类准确率1
+    public function classificationResultA()
+    {
+        exit;
+        $dirBase = 'D:\\Ml\\svm\\ClassificationData\\';
+        $dirN = $dirBase. 'readyClassify\\食品\\';
         $dirN = iconv("UTF-8","gb2312",$dirN);
         $fileN = scandir($dirN);
         unset($fileN[0], $fileN[1]);
-        $dirNR = 'D:\\Ml\\svm\\ClassificationForThreeData\\ClassificationFile\\食品\\';
+        $dirNR = $dirBase. 'ClassificationFile\\食品\\';
         $dirNR = iconv("UTF-8","gb2312",$dirNR);
         $fileNR = scandir($dirNR);
         unset($fileNR[0], $fileNR[1]);
         $result['食品准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+        print_r($result);exit;
+        $dirN = $dirBase. 'readyClassify\\法律\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = $dirBase. 'ClassificationFile\\法律\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['法律准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = $dirBase. 'readyClassify\\交通运输\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = $dirBase. 'ClassificationFile\\交通运输\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['交通运输准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = $dirBase. 'readyClassify\\教育\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = $dirBase. 'ClassificationFile\\教育\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['教育准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = $dirBase. 'readyClassify\\军事\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = $dirBase. 'ClassificationFile\\军事\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['军事准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = $dirBase. 'readyClassify\\历史\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = $dirBase. 'ClassificationFile\\历史\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['历史准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = $dirBase. 'readyClassify\\农林\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = $dirBase. 'ClassificationFile\\农林\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['农林准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = $dirBase. 'readyClassify\\食品\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = $dirBase. 'ClassificationFile\\食品\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['食品准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = $dirBase. 'readyClassify\\数学\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = $dirBase. 'ClassificationFile\\数学\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['数学准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = $dirBase. 'readyClassify\\体育\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = $dirBase. 'ClassificationFile\\体育\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['体育准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = $dirBase. 'readyClassify\\天文科学\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = $dirBase. 'ClassificationFile\\天文科学\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['天文科学准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = $dirBase. 'readyClassify\\文化\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = $dirBase. 'ClassificationFile\\文化\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['文化准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = $dirBase. 'readyClassify\\文学\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = $dirBase. 'ClassificationFile\\文学\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['文学准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = $dirBase. 'readyClassify\\医药卫生\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = $dirBase. 'ClassificationFile\\医药卫生\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['医药卫生准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = $dirBase. 'readyClassify\\艺术\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = $dirBase. 'ClassificationFile\\艺术\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['艺术准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = $dirBase. 'readyClassify\\哲学\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = $dirBase. 'ClassificationFile\\哲学\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['哲学准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = $dirBase. 'readyClassify\\政治法律\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = $dirBase. 'ClassificationFile\\政治法律\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['政治法律准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
+        $dirN = $dirBase. 'readyClassify\\自然科学总论\\';
+        $dirN = iconv("UTF-8","gb2312",$dirN);
+        $fileN = scandir($dirN);
+        unset($fileN[0], $fileN[1]);
+        $dirNR = $dirBase. 'ClassificationFile\\自然科学总论\\';
+        $dirNR = iconv("UTF-8","gb2312",$dirNR);
+        $fileNR = scandir($dirNR);
+        unset($fileNR[0], $fileNR[1]);
+        $result['自然科学总论准确度'] = floatval(count(array_intersect($fileN, $fileNR)) / count($fileN)) * 100 . '%';
+
         print_r($result);
     }
 
@@ -355,5 +538,43 @@ class Index extends Controller
         } else {
             return 'false';
         }
+    }
+
+    public function readLabelResult()
+    {
+        $fileArr = [
+            2 => '酒类',
+            3 => '肉类',
+            4 => '奶类',
+        ];
+        foreach ($fileArr as $k => $v) {
+            $dir = CLASSIFICATION_PATH . "{$v}/";
+            $dir = iconv("UTF-8", "gb2312", $dir);
+            $fileName = scandir($dir);
+            unset($fileName[0], $fileName[1]);
+            foreach ($fileName as $key => $name) {
+                $name = str_replace('.txt', '', $name);
+                $this->_objArticleSearch->importLabel($k, $name);
+            }
+        }
+        return '导入分类结果成功';
+    }
+
+    // 数据展示页
+    public function showYou()
+    {
+        //获取每类数据的来源网站排名前十的
+        $webRank = $this->_objArticleSearch->getWebRank();
+//        var_dump($webRank);exit;
+        // 获取五年的间的数据分布
+        $yearRank = $this->_objArticleSearch->getYearRank();
+        $yearRankLimit = [];
+        if ($yearRank) {
+            $yearRankLimit = array_slice($yearRank, 0, 10, true);
+        }
+        $this->assign('yearRank', $yearRankLimit);
+        $this->assign('rankNum', count($webRank));
+        $this->assign('webRank', $webRank);
+        return $this->fetch();
     }
 }

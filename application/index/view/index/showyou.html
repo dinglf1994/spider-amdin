@@ -3,35 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>分类搜索页</title>
+  <title>分类展示页</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
   {css href="/static/adminlte/bootstrap/css/bootstrap.min.css" /}
   {css href="/static/adminlte/bootstrap/css/font-awesome.min.css" /}
   {css href="/static/adminlte/bootstrap/css/ionicons.min.css" /}
-  {css href="/static/adminlte/plugins/datatables/dataTables.bootstrap.css" /}
+  {css href="/static/adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.css" /}
+  {css href="/static/adminlte/plugins/morris/morris.css" /}
   {css href="/static/adminlte/dist/css/AdminLTE.min.css" /}
   {css href="/static/adminlte/dist/css/skins/_all-skins.min.css" /}
-
-  <!-- Bootstrap 3.3.6 -->
-  <!--<link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">-->
-  <!-- Font Awesome -->
-  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">-->
-  <!-- Ionicons -->
-  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">-->
-  <!-- Theme style -->
-  <!--<link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">-->
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-  <!--<link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">-->
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
@@ -231,14 +213,14 @@
             <li><a href="/index/label"><i class="fa fa-circle-o"></i>数据统计</a></li>
           </ul>
         </li>
-        <li class="treeview active">
+        <li class="treeview">
           <a href="#">
             <i class="fa fa-odnoklassniki"></i>
             <span>个人信息中心</span>
           </a>
           <ul class="treeview-menu">
             <li><a href="/index/label/user"><i class="fa fa-circle-o"></i> 进行数据标注</a></li>
-            <li class="active"><a href="/index/label/userinfo"><i class="fa fa-circle-o"></i> 个人标注信息</a></li>
+            <li><a href="/index/label/userinfo"><i class="fa fa-circle-o"></i> 个人标注信息</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -253,7 +235,7 @@
             <li><a href="/index/label/search"><i class="fa fa-circle-o"></i>进入搜索</a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview active">
           <a href="#">
             <i class="fa fa-tv"></i>
             <span>爬虫分类数据展示</span>
@@ -262,7 +244,7 @@
                   </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/index/index/showyou"><i class="fa fa-circle-o"></i>图表展示</a></li>
+            <li class="active"><a href="/index/label/search"><i class="fa fa-circle-o"></i>图表展示</a></li>
             <li><a href="/index/label/search"><i class="fa fa-circle-o"></i>检索功能</a></li>
           </ul>
         </li>
@@ -492,196 +474,80 @@
     <section class="content-header">
       <h1>
         食品数据展示页
-        <small>分类搜索</small>
+        <small>目前数据情况</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> 食品分类信息</a></li>
         <li><a href="#">数据展示</a></li>
-        <li class="active">标注信息页</li>
+        <li class="active">分类信息</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
 
-      <!-- Info boxes -->
+      <!-- DONUT CHART -->
       <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <a href="/index/label/search"><span class="info-box-icon bg-aqua"><i class="fa fa-hand-peace-o"></i></span></a>
+      <div class="col-md-6">
+      <div class="box box-danger">
+        <div class="box-header with-border">
+          <h3 class="box-title">数据来源前{$rankNum}网站扇形图</h3>
 
-            <div class="info-box-content">
-              <span class="info-box-text">{$iconInfo[0]['name']}</span>
-              <span class="info-box-number">{$iconInfo[0]['number']}</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <a href="/index/label/search"><span class="info-box-icon bg-red"><i class="fa fa-hand-pointer-o"></i></span></a>
-
-            <div class="info-box-content">
-              <span class="info-box-text">{$iconInfo[1]['name']}</span>
-              <span class="info-box-number">{$iconInfo[1]['number']}</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-
-        <!-- fix for small devices only -->
-        <div class="clearfix visible-sm-block"></div>
-
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <a href="/index/label/search"><span class="info-box-icon bg-green"><i class="fa fa-hourglass-start"></i></span></a>
-
-            <div class="info-box-content">
-              <span class="info-box-text">{$iconInfo[2]['name']}</span>
-              <span class="info-box-number">{$iconInfo[2]['number']}</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <a href="/index/label/user"><span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span></a>
-
-            <div class="info-box-content">
-              <span class="info-box-text">{$iconInfo[3]['name']}</span>
-              <span class="info-box-number"></span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-
-      <div class="row">
-        <!-- left column -->
-        <div class="col-md-12">
-          <!-- general form elements -->
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">筛选</h3>
-            </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-            <form action="/index/label/userinfo" method="get" role="form">
-              <div class="box-body">
-                <div class="form-group col-md-4">
-                  <label for="url">来源</label>
-                  <select name="text_url" id="url" class="form-control select2" style="width: 100%;">
-                    <option value="" selected="selected">请选择</option>
-                    <option value="search.tech-food.com">中国食品搜索</option>
-                    <option value="www.cnfood.com">中国食品网</option>
-                  </select>
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="type">标签</label>
-                  <select name="type" id="type" class="form-control select2" style="width: 100%;">
-                    <option value="" selected="selected">请选择</option>
-                    <option value="2">酒类</option>
-                    <option value="3">肉类</option>
-                    <option value="4">奶类</option>
-                    <option value="1">食品</option>
-                    <option value="5">其他</option>
-                  </select>
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="exampleInputPassword2">标题中搜索</label>
-                  <input type="text" name="search_word" class="form-control" id="exampleInputPassword2" placeholder="">
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="labelInfo">标注情况</label>
-                  <select name="label_info" id="labelInfo" class="form-control select2" style="width: 100%;">
-                    <option value="" selected="selected">请选择</option>
-                    <option value="2">完成标注</option>
-                    <option value="1">标注中</option>
-                  </select>
-                </div>
-              </div>
-              <!-- /.box-body -->
-
-              <div class="box-footer">
-                <div class=" pull-left col-md-12">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </div>
-            </form>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
           </div>
         </div>
+        <div class="box-body chart-responsive">
+          <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
+        </div>
+        <!-- /.box-body -->
       </div>
 
-      <div class="row">
-        <div class="col-md-12">
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">筛选结果</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table class="table table-bordered">
-                <tr>
-                  <th style="width: 10px">ID</th>
-                  <th>来源URL</th>
-                  <th>标题</th>
-                  <th>标注时间</th>
-                  <th>标注类型</th>
-                  <th>是否需要标注</th>
-                  <th>操作</th>
-                </tr>
-                {foreach $list as $l}
-                <tr>
-                  <td>{$l.id}</td>
-                  {switch name="$l.text_url"}
-                  {case value="search.tech-food.com"}<td><span class="label label-primary">中国食品搜索</span></td>{/case}
-                  {case value="www.cnfood.com"}<td><span class="label label-primary">中国食品网</span></td>{/case}
-                  {/switch}
-                  {if condition="$word neq ''"}
-                  <td>{$l.title|str_replace="$word","<font color='red'>$word</font>",###}</td>
-                  {else /}
-                  <td>{$l.title}</td>
-                  {/if}
-                  <td>{$l.ucreate_time}</td>
-                  {switch name="$l.type"}
-                  {case value="0"}<td><span class="label label-primary">未知</span></td>{/case}
-                  {case value="1"}<td><span class="label label-primary">食品</span></td>{/case}
-                  {case value="2"}<td><span class="label label-primary">酒类</span></td>{/case}
-                  {case value="3"}<td><span class="label label-primary">肉类</span></td>{/case}
-                  {case value="4"}<td><span class="label label-primary">奶类</span></td>{/case}
-                  {case value="5"}<td><span class="label label-primary">其他</span></td>{/case}
-                  {/switch}
+      <!-- AREA CHART -->
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">每年分类数据时间分布</h3>
 
-                  {switch name="$l.need_classify"}
-                  {case value="1"}<td><span class="label label-danger">标注中</span></td>{/case}
-                  {case value="2"}<td><span class="label label-success">已完成标注</span></td>{/case}
-                  {/switch}
-                  <td><a target="_blank" class="label label-primary" href="/index/label/onlyReadFile?name={$l.text_name}&type={$l.c_type}">查看详情</a></td>
-                </tr>
-                {/foreach}
-              </table>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer clearfix">
-              <ul class="pagination pagination-sm no-margin pull-right">
-                {$page}
-              </ul>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+          </div>
+        </div>
+        <div class="box-body chart-responsive">
+          <div class="chart" id="revenue-chart" style="height: 300px;"></div>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      </div>
+      <!-- /.box -->
+
+      <!--charJs-->
+      <div class="col-md-6">
+        <!-- BAR CHART -->
+        <div class="box box-success">
+          <div class="box-header with-border">
+            <h3 class="box-title">数据来源前{$rankNum}网站柱状图</h3>
+
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
             </div>
           </div>
-          <!-- /.box -->
+          <div class="box-body chart-responsive">
+            <div class="chart" id="bar-chart" style="height: 300px;"></div>
+          </div>
+          <!-- /.box-body -->
         </div>
-        <!-- /.col -->
+        <!-- /.box -->
       </div>
-      <!-- /.row -->
+      </div>
+      <!-- /.box -->
+
+
 
     </section>
     <!-- /.content -->
@@ -903,24 +769,59 @@
 <!--{js href="/static/adminlte/plugins/slimScroll/jquery.slimscroll.min.js" /}-->
 {js href="/static/adminlte/plugins/chartjs/Chart.min.js" /}
 <!--{js href="/static/adminlte/dist/js/pages/dashboard2.js" /}-->
-<!-- DataTables -->
-{js href="/static/adminlte/plugins/datatables/jquery.dataTables.min.js" /}
-{js href="/static/adminlte/plugins/datatables/dataTables.bootstrap.min.js" /}
 {js href="/static/adminlte/dist/js/demo.js" /}
 {js href="/static/adminlte/bootstrap/js/raphael-min.js" /}
 {js href="/static/adminlte/plugins/morris/morris.min.js" /}
 
+<!--CharJS-->
 <script>
     $(function () {
-        $("#example1").DataTable();
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false
+      /*DONUT CHART
+       * -------
+       * Here we will create a few charts using ChartJS
+       */
+        var donut = new Morris.Donut({
+            element: 'sales-chart',
+            resize: true,
+            colors: ["#3c8dbc", "#f56954", "#00a65a"],
+            data: [
+                {foreach $webRank as $rank}
+                {label: "{$rank.article_source}", value: {$rank.total}},
+                {/foreach}
+            ],
+            hideHover: 'auto'
         });
+        //BAR CHART
+        var bar = new Morris.Bar({
+            element: 'bar-chart',
+            resize: true,
+            data: [
+                {foreach name="webRank" item="rank"}
+                {y: '{$rank.article_source}', a: {$rank.total}},
+                {/foreach}
+            ],
+            barColors: ['#00a65a'],
+            xkey: 'y',
+            ykeys: 'a',
+            labels: ['数量'],
+            hideHover: 'auto'
+        });
+        // AREA CHART
+        var area = new Morris.Area({
+            element: 'revenue-chart',
+            resize: true,
+            data: [
+                {foreach name="yearRank" item="yrank"}
+                {y: '{$key}', item1: {$yrank[0]['total']|default=0}, item2: {$yrank[1]['total']|default=0}, item3: {$yrank[3]['total']|default=0}},
+                {/foreach}
+            ],
+            xkey: 'y',
+            ykeys: ['item1', 'item2', 'item3'],
+            labels: ['酒类', '奶类', '肉类'],
+            lineColors: ['#a0d0e0', '#3c8dbc', '#3c8dbc'],
+            hideHover: 'auto'
+        });
+
     });
 </script>
 
