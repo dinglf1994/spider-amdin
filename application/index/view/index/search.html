@@ -3,17 +3,36 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>分类展示页</title>
+  <title>分类搜索页</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
   {css href="/static/adminlte/bootstrap/css/bootstrap.min.css" /}
   {css href="/static/adminlte/bootstrap/css/font-awesome.min.css" /}
   {css href="/static/adminlte/bootstrap/css/ionicons.min.css" /}
-  {css href="/static/adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.css" /}
-  {css href="/static/adminlte/plugins/morris/morris.css" /}
+  {css href="/static/adminlte/plugins/datatables/dataTables.bootstrap.css" /}
   {css href="/static/adminlte/dist/css/AdminLTE.min.css" /}
   {css href="/static/adminlte/dist/css/skins/_all-skins.min.css" /}
+  {css href="/static/adminlte/plugins/datepicker/datepicker3.css" /}
+
+  <!-- Bootstrap 3.3.6 -->
+  <!--<link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">-->
+  <!-- Font Awesome -->
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">-->
+  <!-- Ionicons -->
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">-->
+  <!-- Theme style -->
+  <!--<link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">-->
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <!--<link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">-->
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
@@ -244,8 +263,8 @@
                   </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="/index/label/search"><i class="fa fa-circle-o"></i>图表展示</a></li>
-            <li><a href="/index/index/search"><i class="fa fa-circle-o"></i>检索功能</a></li>
+            <li><a href="/index/index/showyou"><i class="fa fa-circle-o"></i>图表展示</a></li>
+            <li class="active"><a href="/index/index/search"><i class="fa fa-circle-o"></i>检索功能</a></li>
           </ul>
         </li>
         <!--<li class="treeview">
@@ -474,82 +493,193 @@
     <section class="content-header">
       <h1>
         食品数据展示页
-        <small>目前数据情况</small>
+        <small>分类搜索</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> 食品分类信息</a></li>
         <li><a href="#">数据展示</a></li>
-        <li class="active">分类信息</li>
+        <li class="active">分类搜索页</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
 
-      <!-- DONUT CHART -->
       <div class="row">
-      <div class="col-md-6">
-      <div class="box box-danger">
-        <div class="box-header with-border">
-          <h3 class="box-title">数据来源前{$rankNum}网站扇形图</h3>
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">筛选</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form action="/index/index/search" method="get" role="form">
+              <div class="box-body">
+                <div class="form-group col-md-4">
+                  <label for="url">来源</label>
+                  <select name="article_source" id="url" class="form-control select2" style="width: 100%;">
+                    <option value="" selected="selected">请选择</option>
+                    {foreach $source as $s}
+                    {if condition="$s.article_source eq '-'"}
+                    <option value="{$s.article_source}">中国食品搜索</option>
+                    {else /}
+                    <option value="{$s.article_source}">{$s.article_source}</option>
+                    {/if}
+                    {/foreach}
+                  </select>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="label">标签</label>
+                  <select name="label" id="label" class="form-control select2" style="width: 100%;">
+                    <option value="" selected="selected">请选择</option>
+                    <option value="2">酒类</option>
+                    <option value="3">肉类</option>
+                    <option value="4">奶类</option>
+                    <option value="0">食品</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="exampleInputPassword2">标题中搜索</label>
+                  <input type="text" name="search_word" class="form-control" id="exampleInputPassword2" placeholder="">
+                </div>
 
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                <div class="form-group col-md-4">
+                  <label for="exampleInputPassword2">内容中搜索</label>
+                  <input type="text" name="search_content_word" class="form-control" id="exampleInputPassword3" placeholder="">
+                </div>
+
+                <!-- Date -->
+                <div class="form-group col-md-4">
+                  <label>发布时间开始</label>
+
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input name="bptime" type="text" class="form-control pull-right" id="datepicker1">
+                  </div>
+                  <!-- /.input group -->
+                </div>
+                <!-- /.form group -->
+
+
+                <!-- Date -->
+                <div class="form-group col-md-4">
+                  <label>发布时间结束</label>
+
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input name="eptime" type="text" class="form-control pull-right" id="datepicker2">
+                  </div>
+                  <!-- /.input group -->
+                </div>
+                <!-- /.form group -->
+                <!-- Date -->
+                <div class="form-group col-md-4">
+                  <label>创建时间开始</label>
+
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input name="bctime" type="text" class="form-control pull-right" id="datepicker3">
+                  </div>
+                  <!-- /.input group -->
+                </div>
+                <!-- /.form group -->
+                <!-- Date -->
+                <div class="form-group col-md-4">
+                  <label>创建时间结束</label>
+
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input name="ectime" type="text" class="form-control pull-right" id="datepicker4">
+                  </div>
+                  <!-- /.input group -->
+                </div>
+                <!-- /.form group -->
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                <div class=" pull-left col-md-12">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
-        <div class="box-body chart-responsive">
-          <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
-        </div>
-        <!-- /.box-body -->
       </div>
-      </div>
-      <!--charJs-->
-      <div class="col-md-6">
-        <!-- BAR CHART -->
-        <div class="box box-success">
-          <div class="box-header with-border">
-            <h3 class="box-title">数据来源前{$rankNum}网站柱状图</h3>
 
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-              </button>
-              <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">筛选结果</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table class="table table-bordered">
+                <tr>
+                  <th style="width: 10px">ID</th>
+                  <!--<th>文件名</th>-->
+                  <th>来源URL</th>
+                  <th>标题</th>
+                  <th>查看</th>
+                  <th>回复</th>
+                  <th>发布时间</th>
+                  <th>获取时间</th>
+                  <th>类别</th>
+                  <th>操作</th>
+                </tr>
+                {foreach $list as $l}
+                <tr>
+                  <td>{$l.articleid}</td>
+                  {if condition="$l.article_source eq '-'"}
+                  <td><span class="label label-primary">中国食品搜索</span></td>
+                  {else /}
+                  <td><span class="label label-primary">{$l.article_source}</span></td>
+                  {/if}
+                  {if condition="$word neq ''"}
+                  <td>{$l.article_title|str_replace="$word","<font color='red'>$word</font>",###}</td>
+                  {else /}
+                  <td>{$l.article_title}</td>
+                  {/if}
+                  <td>{$l.article_viewcount}</td>
+                  <td>{$l.article_replycount}</td>
+                  <td>{$l.article_pubtime_str}</td>
+                  <td>{$l.create_time}</td>
+                  {switch name="$l.label"}
+                    {case value="0"}<td><span class="label label-primary">食品</span></td>{/case}
+                    {case value="1"}<td><span class="label label-primary">食品</span></td>{/case}
+                    {case value="2"}<td><span class="label label-primary">酒类</span></td>{/case}
+                    {case value="3"}<td><span class="label label-primary">肉类</span></td>{/case}
+                    {case value="4"}<td><span class="label label-primary">奶类</span></td>{/case}
+                    {case value="5"}<td><span class="label label-primary">其他</span></td>{/case}
+                  {/switch}
+                  <td><a target="_blank" class="label label-primary" href="/index/label/onlyReadFile?name={$l.articleid}&type={$l.label}">查看详情</a></td>
+                </tr>
+                {/foreach}
+              </table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+                {$page}
+              </ul>
             </div>
           </div>
-          <div class="box-body chart-responsive">
-            <div class="chart" id="bar-chart" style="height: 300px;"></div>
-          </div>
-          <!-- /.box-body -->
+          <!-- /.box -->
         </div>
-        <!-- /.box -->
+        <!-- /.col -->
       </div>
-      </div>
-      <!-- /.box -->
-
-      <div class="col-md-12">
-        <!-- AREA CHART -->
-        <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title">每年分类数据时间分布</h3>
-
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-              </button>
-              <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-            </div>
-          </div>
-          <div class="box-body chart-responsive">
-            <div class="chart" id="revenue-chart" style="height: 300px;"></div>
-          </div>
-          <!-- /.box-body -->
-        </div>
-        </div>
-        <!-- /.box -->
-      </div>
-
-
+      <!-- /.row -->
 
     </section>
     <!-- /.content -->
@@ -771,59 +901,48 @@
 <!--{js href="/static/adminlte/plugins/slimScroll/jquery.slimscroll.min.js" /}-->
 {js href="/static/adminlte/plugins/chartjs/Chart.min.js" /}
 <!--{js href="/static/adminlte/dist/js/pages/dashboard2.js" /}-->
+<!-- DataTables -->
+{js href="/static/adminlte/plugins/datatables/jquery.dataTables.min.js" /}
+{js href="/static/adminlte/plugins/datatables/dataTables.bootstrap.min.js" /}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+{js href="/static/adminlte/plugins/daterangepicker/daterangepicker.js" /}
+{js href="/static/adminlte/plugins/datepicker/bootstrap-datepicker.js" /}
 {js href="/static/adminlte/dist/js/demo.js" /}
 {js href="/static/adminlte/bootstrap/js/raphael-min.js" /}
 {js href="/static/adminlte/plugins/morris/morris.min.js" /}
 
-<!--CharJS-->
 <script>
     $(function () {
-      /*DONUT CHART
-       * -------
-       * Here we will create a few charts using ChartJS
-       */
-        var donut = new Morris.Donut({
-            element: 'sales-chart',
-            resize: true,
-            colors: ["#3c8dbc", "#f56954", "#00a65a"],
-            data: [
-                {foreach $webRank as $rank}
-                {label: "{$rank.article_source}", value: {$rank.total}},
-                {/foreach}
-            ],
-            hideHover: 'auto'
-        });
-        //BAR CHART
-        var bar = new Morris.Bar({
-            element: 'bar-chart',
-            resize: true,
-            data: [
-                {foreach name="webRank" item="rank"}
-                {y: '{$rank.article_source}', a: {$rank.total}},
-                {/foreach}
-            ],
-            barColors: ['#00a65a'],
-            xkey: 'y',
-            ykeys: 'a',
-            labels: ['数量'],
-            hideHover: 'auto'
-        });
-        // AREA CHART
-        var area = new Morris.Area({
-            element: 'revenue-chart',
-            resize: true,
-            data: [
-                {foreach name="yearRank" item="yrank"}
-                {y: '{$key}', item1: {$yrank[0]['total']|default=0}, item2: {$yrank[1]['total']|default=0}, item3: {$yrank[2]['total']|default=0}},
-                {/foreach}
-            ],
-            xkey: 'y',
-            ykeys: ['item1', 'item2', 'item3'],
-            labels: ['酒类', '奶类', '肉类'],
-            lineColors: ['#a0d0e0', '#3c8dbc', '#00a65a'],
-            hideHover: 'auto'
+        $("#example1").DataTable();
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
         });
 
+        //Date picker
+        $('#datepicker1').datepicker({
+            dateFormat: "yy-mm-dd",
+            autoclose: true
+        });
+        //Date picker
+        $('#datepicker2').datepicker({
+            dateFormat: "yy-mm-dd",
+            autoclose: true
+        });
+        //Date picker
+        $('#datepicker3').datepicker({
+            dateFormat: "yy-mm-dd",
+            autoclose: true
+        });
+        //Date picker
+        $('#datepicker4').datepicker({
+            dateFormat: "yy-mm-dd",
+            autoclose: true
+        });
     });
 </script>
 

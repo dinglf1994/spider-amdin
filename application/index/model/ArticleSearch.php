@@ -58,8 +58,8 @@ class ArticleSearch extends Model
     // 分页查询数据
     public function pageSelect($where, $field = '*', $query = [])
     {
-        $classify = new Classify();
-        $list = $classify->where($where)->field($field)->order('id DESC')->paginate(15, false, array(
+        $articleClassify = new ArticleSearch();
+        $list = $articleClassify->where($where)->field($field)->order('articleid DESC')->paginate(15, false, array(
             'query' => $query
         ));
         $page = $list->render();
@@ -99,5 +99,12 @@ class ArticleSearch extends Model
         }else {
             return 0;
         }
+    }
+
+    public function getSource()
+    {
+        $sql = "SELECT count(articleid) as total, article_source FROM cs_article_search WHERE article_source NOT regexp '[0-9]' GROUP BY article_source ORDER BY total DESC";
+        $articleSearch = new ArticleSearch();
+        return $articleSearch->query($sql);
     }
 }

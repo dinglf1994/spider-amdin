@@ -580,4 +580,61 @@ class Index extends Controller
         $this->assign('webRank', $webRank);
         return $this->fetch();
     }
+    // 搜索详情页
+    public function search()
+    {
+        if (Session::get('rank') < 2) {
+            $this->error('访问权限不够，返回中。。。');
+        }else {
+            $query = [];
+            $where = '1 = 1';
+            $get = $this->request->get();
+
+            if (!empty($get['article_source'])) {
+                $where .= " AND article_source = '{$get['article_source']}'";
+                $query['article_source'] = "{$get['article_source']}";
+            }
+            if (!empty($get['search_word'])) {
+//                $where .= " AND title like '%{$get['search_word']}%' or content like '%{$get['search_word']}%'";
+                $where .= " AND article_title like '%{$get['search_word']}%'";
+                $query['search_word'] = "{$get['search_word']}";
+            }
+            if (!empty($get['search_content_word'])) {
+//                $where .= " AND title like '%{$get['search_word']}%' or content like '%{$get['search_word']}%'";
+                $where .= " AND article_content like '%{$get['search_content_word']}%'";
+                $query['search_content_word'] = "{$get['search_content_word']}";
+            }
+            if (!empty($get['bptime'])) {
+                $bptime = strtotime($get['bptime']);
+                $eptime = empty($get['eptime']) ? now() : strtotime($get['eptime']);
+                $where .= " AND UNIX_TIMESTAMP(DATE_FORMAT(`article_pubtime_str`,'%Y-%m-%d')) >= $bptime AND UNIX_TIMESTAMP(DATE_FORMAT(`article_pubtime_str`,'%Y-%m-%d')) <= $eptime";
+                $query['bptime'] = "{$get['bptime']}";
+                $query['eptime'] = "{$get['eptime']}";
+            }
+            if (!empty($get['bctime'])) {
+                $bctime = strtotime($get['bctime']);
+                $ectime = empty($get['ectime']) ? now() : strtotime($get['ectime']);
+                $where .= " AND UNIX_TIMESTAMP(DATE_FORMAT(`create_time`,'%Y-%m-%d')) >= $bctime AND UNIX_TIMESTAMP(DATE_FORMAT(`create_time`,'%Y-%m-%d')) <= $ectime";
+                $query['bctime'] = "{$get['bctime']}";
+                $query['ectime'] = "{$get['ectime']}";
+            }
+            if (!empty($get['label'])) {
+                $where .= " AND label = '{$get['label']}'";
+                $query['label'] = "{$get['label']}";
+            }
+//            var_dump($where);exit;
+            $result = $this->_objArticleSearch->pageSelect($where, '*', $query);
+            if (isset($get['search_word'])) {
+                $this->assign('word', $get['search_word']);
+            }else {
+                $this->assign('word', '');
+            }
+            $source = $this->_objArticleSearch->getSource();
+            $this->assign('source', $source);
+            $this->assign('list', $result['list']);
+            $this->assign('page', $result['page']);
+            return $this->fetch();
+
+        }
+    }
 }
