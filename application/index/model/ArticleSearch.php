@@ -86,7 +86,7 @@ class ArticleSearch extends Model
     public function getYearRank($limit = 6)
     {
         // AND label IN (2,3,4)
-        $sql = "SELECT label, COUNT(articleid) as total, STR_TO_DATE(`article_pubtime_str`,'%Y') as y FROM cs_article_search WHERE UNIX_TIMESTAMP(STR_TO_DATE(`article_pubtime_str`,'%Y')) > UNIX_TIMESTAMP(STR_TO_DATE(NOW(),'%Y'))-157852900 AND label IN (2,3,4) GROUP BY STR_TO_DATE(`article_pubtime_str`,'%Y'), label ORDER BY y DESC";
+        $sql = "SELECT label, COUNT(articleid) as total, DATE_FORMAT(`article_pubtime_str`,'%Y') as y FROM cs_article_search WHERE UNIX_TIMESTAMP(DATE_FORMAT(`article_pubtime_str`,'%Y')) > UNIX_TIMESTAMP(DATE_FORMAT(NOW(),'%Y'))-157852900 AND label IN (2,3,4) GROUP BY DATE_FORMAT(`article_pubtime_str`,'%Y'), label ORDER BY y DESC";
         $articleSearch = new ArticleSearch();
         $yearInfo = $articleSearch->query($sql);
         $label = [];
