@@ -565,6 +565,9 @@ class Index extends Controller
     {
         //获取每类数据的来源网站排名前十的
         $webRank = $this->_objArticleSearch->getWebRank();
+        foreach ($webRank as &$value) {
+            $value['article_source'] === '-' ? $value['article_source'] = '中国食品网' : '';
+        }
 //        var_dump($webRank);exit;
         // 获取五年的间的数据分布
         $yearRank = $this->_objArticleSearch->getYearRank();
