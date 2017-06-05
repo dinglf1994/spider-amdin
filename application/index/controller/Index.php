@@ -167,6 +167,31 @@ class Index extends Controller
         return $this->fetch();
     }
 
+    // 仅打开文本
+    public function onlyReadFile()
+    {
+        $arrType = [
+            0 => '食品数据',
+            1 => '食品',
+            2 => '酒类',
+            3 => '肉类',
+            4 => '奶类',
+        ];
+        $articleId = Request::instance()->get('articleid');
+        $type = intval(Request::instance()->get('type'));
+
+        $where = ['articleid' => $articleId];
+
+        $content = $this->_objArticleSearch->getContent($where);
+
+        $this->assign('type', $arrType[$type]);
+        $this->assign('filename', $content['article_title']);
+        $title = $content['article_title'];
+        $this->assign('title', mb_substr($title, 0, 30, 'utf-8'));
+        $this->assign('content', $content['article_content']);
+        return $this->fetch();
+    }
+
     // 删除文本
     public function delFile()
     {

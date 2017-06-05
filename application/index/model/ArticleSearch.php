@@ -28,8 +28,8 @@ class ArticleSearch extends Model
 
     public function getContent($where)
     {
-        $classify = new Classify();
-        return $classify->where($where)->find();
+        $articleSearch = new ArticleSearch();
+        return $articleSearch->where($where)->find();
     }
 
     public function importLabel($label, $md5Url)
